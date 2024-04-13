@@ -127,7 +127,8 @@ extension NetworkManager {
         guard let url = URL(string: "http://172.20.10.2:8080/user-cards") else {
             return false
         }
-
+        print(requestData.userId)
+        print(requestData.bankCardId)
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -135,9 +136,10 @@ extension NetworkManager {
             "userId": requestData.userId,
             "bankCardId": requestData.bankCardId
         ])
+        print(requestData?.description)
         request.httpBody = requestData
         let (data, response) = try await URLSession.shared.data(for: request)
-        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 201 else {
             return false
         }
 
