@@ -4,9 +4,9 @@ import Foundation
 public class NetworkManager {
     public init() {}
     
-    public func registerUser(_ user: User, password: String) async -> Result<User?, Error> {
+    public func registerUser(_ user: User, password: String) async -> Result<[String: Any]?, Error> {
         let data = toJSON([
-            APIConstants.username: user.username,
+            APIConstants.name: user.name,
             APIConstants.email: user.email,
             APIConstants.password: password
         ])
@@ -22,15 +22,14 @@ public class NetworkManager {
         
         do {
             let (data, _) = try await URLSession.shared.data(for: request)
-            let decoder = JSONDecoder()
             print(String(decoding: data, as: UTF8.self))
-            if let user = try? decoder.decode(User.self, from: data) {
-                return Result.success(user)
+            if let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                return .success(jsonObject)
             } else {
-                return Result.failure(DecodingError.dataCorrupted(.init(codingPath: [], debugDescription: "Could not decode data")))
+                return .failure(DecodingError.dataCorrupted(.init(codingPath: [], debugDescription: "Could not decode data to JSON dictionary")))
             }
         } catch {
-            return Result.failure(error)
+            return .failure(error)
         }
     }
     
@@ -59,4 +58,6 @@ public class NetworkManager {
             return Result.failure(error)
         }
     }
+    
+    public static let shared: NetworkManager = NetworkManager()
 }

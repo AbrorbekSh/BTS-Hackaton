@@ -25,6 +25,7 @@
 		FE4CDCF92BCA7811006A7995 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCF82BCA7811006A7995 /* User.swift */; };
 		FE4CDCFB2BCA7A8D006A7995 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCFA2BCA7A8D006A7995 /* MainViewController.swift */; };
 		FE4CDCFD2BCA7AC2006A7995 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCFC2BCA7AC2006A7995 /* CategoriesCollectionViewCell.swift */; };
+		FE4CDD012BCA941F006A7995 /* BigViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDD002BCA941E006A7995 /* BigViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		FE4CDCF82BCA7811006A7995 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FE4CDCFA2BCA7A8D006A7995 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		FE4CDCFC2BCA7AC2006A7995 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
+		FE4CDD002BCA941E006A7995 /* BigViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 		2161E8F22BCA682C00327392 = {
 			isa = PBXGroup;
 			children = (
+				FE4CDD002BCA941E006A7995 /* BigViewModel.swift */,
 				FE4CDCF72BCA7804006A7995 /* Models */,
 				FE4CDCF22BCA77AF006A7995 /* Networking */,
 				FE4CDCE82BCA6E2F006A7995 /* Modifiers */,
@@ -101,8 +104,8 @@
 				FE4CDCFA2BCA7A8D006A7995 /* MainViewController.swift */,
 				FE4CDCDF2BCA68BE006A7995 /* AddCardView.swift */,
 				FE4CDCEA2BCA6F55006A7995 /* LoginView.swift */,
-				FE4CDCEC2BCA6FAD006A7995 /* CustomSecureField.swift */,
 				FE4CDCEE2BCA71BE006A7995 /* RegistrationView.swift */,
+				FE4CDCEC2BCA6FAD006A7995 /* CustomSecureField.swift */,
 				FE4CDCFC2BCA7AC2006A7995 /* CategoriesCollectionViewCell.swift */,
 			);
 			path = Views;
@@ -216,6 +219,7 @@
 				FE4CDCF62BCA77E6006A7995 /* toJSON.swift in Sources */,
 				FE4CDCE42BCA6A03006A7995 /* ButtonModifier.swift in Sources */,
 				FE4CDCFD2BCA7AC2006A7995 /* CategoriesCollectionViewCell.swift in Sources */,
+				FE4CDD012BCA941F006A7995 /* BigViewModel.swift in Sources */,
 				2161E9032BCA682C00327392 /* ViewController.swift in Sources */,
 				FE4CDCE22BCA69B9006A7995 /* TextFieldModifier.swift in Sources */,
 				2161E8FF2BCA682C00327392 /* AppDelegate.swift in Sources */,

@@ -3,12 +3,14 @@ import RegexBuilder
 import Combine
 
 struct RegistrationView: View {
+    @EnvironmentObject var viewModel: BigViewModel
     @State var email: String = ""
     @State var username: String = ""
     @State var password: String = ""
     @State var passwordVerification: String = ""
     @State var passwordMismatch: Bool = false
     @State private var isShowingLogin = false
+    @State private var shouldNavigate = false
     
     var body: some View {
         NavigationView {
@@ -32,6 +34,9 @@ struct RegistrationView: View {
                         )
                         .padding(.vertical, geometry.size.height * RegLogConstants.logoVerticalPadding)
                         .foregroundColor(ColorScheme.lemonYellow)
+                    NavigationLink(destination: MainViewControllerRepresentable(), isActive: $shouldNavigate) {
+                        EmptyView()
+                    }
                     VStack {
                         TextField("Email",text: $email)
                             .modifier(TextFieldModifier())
@@ -52,15 +57,14 @@ struct RegistrationView: View {
                     Text(passwordMismatch ? "Пароли разные" : "")
                         .font(Font.custom("", size: GlobalConstants.fontSize))
                         .foregroundColor(.red)
-                    NavigationLink(destination: {
-                        MainViewControllerRepresentable()
-                            .background(Color.black)
+                    Button(action: {
+                        registerUser()
                     }, label: {
-                                    Text("Войти")
-                        .modifier(ButtonModifier())
-                        .opacity(passwordMismatch ? RegLogConstants.disabledOpacity : RegLogConstants.enabledOpacity)
-                                  }
-                        )
+                        Text("Зарегистрироваться")
+                            .modifier(ButtonModifier())
+                            .opacity(passwordMismatch ? RegLogConstants.disabledOpacity : RegLogConstants.enabledOpacity)
+                    }
+                    )
                     .disabled(passwordMismatch)
                     
                     
@@ -73,7 +77,7 @@ struct RegistrationView: View {
                         
                         NavigationLink("Залогинься!", isActive: $isShowingLogin) {
                             LoginView(isShowing: $isShowingLogin)
-                                
+                            
                         }
                         .font(Font.custom("", size: GlobalConstants.fontSize))
                         
@@ -84,6 +88,23 @@ struct RegistrationView: View {
                     .padding(.top, geometry.size.height * RegLogConstants.bottomViewTopPadding)
                 }
                 .padding(.horizontal)
+            }
+        }
+    }
+    private func registerUser() {
+        Task {
+            let result = await NetworkManager.shared.registerUser(User(name: self.username,email: self.email), password: self.password)
+            switch result {
+            case .success(let data):
+                guard let data = data else {return}
+                print(data)
+                self.viewModel.userLoggedIn = true
+                self.viewModel.curUser = User(id: data["id"] as! Int, name: data["name"] as! String, email: data[
+                    "email"] as! String)
+                self.shouldNavigate = true
+                
+            case .failure(let error):
+                print("Login error: \(error)")
             }
         }
     }

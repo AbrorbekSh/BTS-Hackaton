@@ -1,13 +1,13 @@
 struct APIConstants {
-    public static let baseURL: String = "http://127.0.0.1:5000"
+    public static let baseURL: String = "http://172.20.10.4:8080"
     static let id: String = "id"
     static let email: String = "email"
-    static let username: String = "username"
+    static let name: String = "name"
     static let password: String = "password"
     
     enum Handles: String {
-        case register = "/register"
-        case login = "/login"
+        case register = "/app-users/register"
+        case login = "/app-users/login"
         case newEvent = "/newEvent"
         case users = "/users"
         case user = "/user"

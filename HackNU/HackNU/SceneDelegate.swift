@@ -5,15 +5,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
             // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
             if let windowScene = scene as? UIWindowScene {
                 let window = UIWindow(windowScene: windowScene)
                 
                 // Create the SwiftUI view that provides the window contents.
-                let registrationView = RegistrationView()
-
+                @StateObject var viewModel = BigViewModel()
+                let registrationView = RegistrationView().environmentObject(viewModel)
+                
                 // Use a UIHostingController as window root view controller.
                 window.rootViewController = UIHostingController(rootView: registrationView)
                 

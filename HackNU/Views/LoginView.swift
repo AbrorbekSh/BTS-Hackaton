@@ -3,19 +3,22 @@ import SwiftUI
 struct LoginView: View {
     @State var email: String = ""
     @State var password: String = ""
+    @State private var isLoading: Bool = false
     @Binding var isShowing: Bool
+    @EnvironmentObject var viewModel: BigViewModel
+    @State private var shouldNavigate = false
     
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: geometry.size.height * RegLogConstants.verticalSpacing) {
                 HStack {
                     Spacer()
-//                    Button {
-//
-//                    } label: {
-//                        Image(systemName: "xmark")
-//                            .foregroundStyle(.gray)
-//                    }
+                    //                    Button {
+                    //
+                    //                    } label: {
+                    //                        Image(systemName: "xmark")
+                    //                            .foregroundStyle(.gray)
+                    //                    }
                 }
                 Image(systemName:"lasso")
                     .resizable()
@@ -31,25 +34,25 @@ struct LoginView: View {
                 CustomSecureField(placeholder: "Пароль", rightView: "eye.slash", text: $password)
                     .modifier(TextFieldModifier())
                 
-                NavigationLink(destination: {
-                    MainViewControllerRepresentable()
-                        .background(Color.black)
+                Button(action: {
+                    loginUser()
                 }, label: {
-                                Text("Войти")
-                    .modifier(ButtonModifier())
-                              }
-                    )
+                    Text("Войти")
+                        .modifier(ButtonModifier())
+                })
                 
-//                Button {
-//                } label: {
-//                    Text("Forgot your password?")
-//                        .font(Font.custom("", size: GlobalConstants.fontSize))
-//                        .font(.footnote)
-//                        .foregroundColor(Color(uiColor: .systemGray4))
-//                        .frame(maxWidth: .infinity, alignment: .center)
-//                        .padding(.top, geometry.size.height * RegLogConstants.bottomViewBottomPadding)
-//                }
-
+                //                Button {
+                //                } label: {
+                //                    Text("Forgot your password?")
+                //                        .font(Font.custom("", size: GlobalConstants.fontSize))
+                //                        .font(.footnote)
+                //                        .foregroundColor(Color(uiColor: .systemGray4))
+                //                        .frame(maxWidth: .infinity, alignment: .center)
+                //                        .padding(.top, geometry.size.height * RegLogConstants.bottomViewBottomPadding)
+                //                }
+                NavigationLink(destination: MainViewControllerRepresentable(), isActive: $shouldNavigate) {
+                                    EmptyView()
+                                }
                 
                 Spacer()
                 Divider()
@@ -59,7 +62,7 @@ struct LoginView: View {
                         .foregroundColor(Color(uiColor: .systemGray3))
                     Button {
                         isShowing = false
-                        } label: {
+                    } label: {
                         Text("Зарегистрируйся")
                             .font(Font.custom("", size: GlobalConstants.fontSize))
                             .foregroundColor(Color(uiColor: .systemGray3))
@@ -71,6 +74,22 @@ struct LoginView: View {
             }
             .navigationBarBackButtonHidden(true)
             .padding(.horizontal)
+        }
+    }
+    
+    private func loginUser() {
+        Task {
+            let result = await NetworkManager.shared.fetchUser(email: email, password: password)
+            switch result {
+            case .success(let user):
+                self.viewModel.userLoggedIn = true
+                if let user = user {
+                    self.viewModel.curUser = user
+                    self.shouldNavigate = true
+                }
+            case .failure(let error):
+                print("Login error: \(error)")
+            }
         }
     }
 }
