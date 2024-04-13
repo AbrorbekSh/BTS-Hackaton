@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import QuartzCore
 
 final class CardView: UIView {
     // Properties to hold the card information
     private let type: ViewType
+    private var gradientLayer: CAGradientLayer?
     
     enum ViewType {
         case cell
@@ -36,6 +38,13 @@ final class CardView: UIView {
             cardTypeLabel.text = cardType
         }
     }
+    
+    func configureForProfile() {
+        bankNameLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        cardNumberLabel.font = UIFont.systemFont(ofSize: 12)
+        bonusLabel.font = UIFont.boldSystemFont(ofSize: 14)
+        cardTypeLabel.font = UIFont.systemFont(ofSize: 12)
+    }
 
     // Labels for displaying the card information
     private let bankNameLabel = UILabel()
@@ -55,16 +64,20 @@ final class CardView: UIView {
 
         // Set up the view
         setupView()
+        setupGradient()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        gradientLayer?.frame = bounds
+    }
+    
     // Setup the custom view
     private func setupView() {
-        // Set the background color for the card view
-        self.backgroundColor = UIColor.lightGray
         layer.cornerRadius = 15
         
         switch type {
@@ -123,5 +136,58 @@ final class CardView: UIView {
             cardTypeLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
         ])
     }
+    
+    func changeGradinet() {
+        gradientLayer?.colors = [
+                                UIColor(hex: "#22256E").cgColor, UIColor(hex: "#16C0C0").cgColor,]
+    }
+    
+    private func setupGradient() {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = bounds
+        gradientLayer.cornerRadius = 15
+        gradientLayer.colors = [UIColor(hex: "#2E3192").cgColor,
+                                UIColor(hex: "#1BFFFF").cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+        layer.insertSublayer(gradientLayer, at: 0)
+        
+        self.gradientLayer = gradientLayer
+    }
 }
+
+extension UIColor {
+    // Initialize UIColor from hex code
+    convenience init(hex: String) {
+        // Remove any hash prefix
+        let hexCode = hex.hasPrefix("#") ? String(hex.dropFirst()) : hex
+        
+        // Convert hex code to a valid 8-character code (RRGGBBAA)
+        let expandedHex: String
+        if hexCode.count == 3 { // RGB (e.g., #ABC)
+            expandedHex = hexCode.map { "\($0)\($0)" }.joined() + "FF"
+        } else if hexCode.count == 4 { // RGBA (e.g., #ABCF)
+            expandedHex = hexCode.map { "\($0)\($0)" }.joined()
+        } else if hexCode.count == 6 { // RRGGBB (e.g., #AABBCC)
+            expandedHex = hexCode + "FF"
+        } else {
+            expandedHex = hexCode // RRGGBBAA (e.g., #AABBCCDD)
+        }
+        
+        // Convert the hex code to RGBA values
+        let scanner = Scanner(string: expandedHex)
+        var hexNumber: UInt64 = 0
+        
+        scanner.scanHexInt64(&hexNumber)
+        
+        let red = CGFloat((hexNumber & 0xFF000000) >> 24) / 255.0
+        let green = CGFloat((hexNumber & 0x00FF0000) >> 16) / 255.0
+        let blue = CGFloat((hexNumber & 0x0000FF00) >> 8) / 255.0
+        let alpha = CGFloat(hexNumber & 0x000000FF) / 255.0
+        
+        // Initialize UIColor
+        self.init(red: red, green: green, blue: blue, alpha: alpha)
+    }
+}
+
 

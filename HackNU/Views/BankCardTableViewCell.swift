@@ -8,14 +8,36 @@
 import UIKit
 
 final class BankCardTableViewCell: UITableViewCell {
+    
+    var card: BankCard? { 
+        didSet {
+            guard let card else { return }
+            let cardView = CardView(
+                bankName: card.name,
+                cardNumber: card.name,
+                bonus: card.name,
+                cardType: "Visa",
+                type: .cell
+            )
+            bankCardView = cardView
+     }
+    }
+    
+    func changeGradient() {
+        bankCardView.changeGradinet()
+    }
     // The bank card view to be displayed in the cell
-    let bankCardView = CardView(
+    var bankCardView = CardView(
         bankName: "Jusan",
         cardNumber: "4004 **** **** 2123",
         bonus: "5%",
         cardType: "Visa",
         type: .cell
     )
+    
+    func configureForprofile() {
+        bankCardView.configureForProfile()
+    }
     
     private let backView: UIView = {
         let view = UIView()

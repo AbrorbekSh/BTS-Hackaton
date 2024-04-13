@@ -9,7 +9,13 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
-    private var cards:[BankCard] = [] { 
+    private var cards:[BankCard] = [
+        BankCard(id: 12, bank: Bank(id: 12, name: "Jusan", image: nil), name: "Jusan", image: nil, comment: nil),
+        BankCard(id: 12, bank: Bank(id: 12, name: "Jusan", image: nil), name: "Jusan", image: nil, comment: nil),
+        BankCard(id: 12, bank: Bank(id: 12, name: "Jusan", image: nil), name: "Jusan", image: nil, comment: nil),
+        BankCard(id: 12, bank: Bank(id: 12, name: "Jusan", image: nil), name: "Jusan", image: nil, comment: nil),
+        BankCard(id: 12, bank: Bank(id: 12, name: "Jusan", image: nil), name: "Jusan", image: nil, comment: nil),
+    ] {
         didSet {
             tableView.reloadData()
         }
@@ -40,7 +46,7 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
         let tableView = UITableView()
         tableView.backgroundColor = .black
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(BankCardTableViewCell.self, forCellReuseIdentifier: "Cell")
         return tableView
     }()
     
@@ -88,8 +94,8 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
         // Table view constraints
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 20),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             tableView.bottomAnchor.constraint(equalTo: logoutButton.topAnchor, constant: -20)
         ])
         
@@ -106,9 +112,25 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = "4003 **** **** ****" // Customize cell text as needed
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? BankCardTableViewCell else {
+            return UITableViewCell()
+        }
+        cell.card = cards[indexPath.row]
+        cell.configureForprofile()
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        // Check if the editing style is delete
+        if editingStyle == .delete {
+            // Perform the deletion of the data item associated with the cell
+            // Assuming you have an array of data source (e.g., dataArray) to remove the item from
+            cards.remove(at: indexPath.row)
+            
+            // Delete the row from the table view
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
     }
     
     // UITableViewDelegate methods (optional)
@@ -117,6 +139,9 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
         print("Selected item at index \(indexPath.row)")
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        120
+    }
     // Logout button action
     @objc private func logoutButtonTapped() {
         print("Logout button tapped")
