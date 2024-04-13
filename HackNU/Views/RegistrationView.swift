@@ -34,7 +34,7 @@ struct RegistrationView: View {
                         )
                         .padding(.vertical, geometry.size.height * RegLogConstants.logoVerticalPadding)
                         .foregroundColor(ColorScheme.lemonYellow)
-                    NavigationLink(destination: MainViewControllerRepresentable(), isActive: $shouldNavigate) {
+                    NavigationLink(destination: MainViewControllerRepresentable(viewModel: viewModel), isActive: $shouldNavigate) {
                         EmptyView()
                     }
                     VStack {

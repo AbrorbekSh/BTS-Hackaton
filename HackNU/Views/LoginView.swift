@@ -51,7 +51,7 @@ struct LoginView: View {
                 //                        .frame(maxWidth: .infinity, alignment: .center)
                 //                        .padding(.top, geometry.size.height * RegLogConstants.bottomViewBottomPadding)
                 //                }
-                NavigationLink(destination: MainViewControllerRepresentable(), isActive: $shouldNavigate) {
+                NavigationLink(destination: MainViewControllerRepresentable(viewModel: viewModel), isActive: $shouldNavigate) {
                                     EmptyView()
                                 }
                 

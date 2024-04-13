@@ -2,8 +2,27 @@ import UIKit
 import SwiftUI
 
 final class MainViewController: UIViewController, UITextFieldDelegate {
-    private var categories: [Category] = []
+    private let viewModel: BigViewModel
+    private var categories: [Category] = [] {
+        didSet {
+            filteredCategories = categories
+        }
+    }
+    private var filteredCategories: [Category] = [] 
     private var banks: [Bank] = []
+    
+    init(viewModel: BigViewModel, categories: [Category] = [], banks: [Bank] = []) {
+        self.viewModel = viewModel
+        self.categories = categories
+        self.banks = banks
+        super.init(nibName: nil, bundle: nil)
+        
+        searchTextField.delegate = self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private let categoriesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -30,8 +49,6 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
         
         return view
     }()
-    
-    
     
     private lazy var addCardButton: UIButton = {
         let button = UIButton()
@@ -97,6 +114,7 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboardWhenTappedAround() 
         loadBanks()
         fetchCategories()
         view.backgroundColor = .black
@@ -125,7 +143,7 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc private func showProfile() {
-        navigationController?.pushViewController(ProfileViewController(), animated: true)
+        navigationController?.pushViewController(ProfileViewController(viewModel: viewModel), animated: true)
     }
     
     @objc private func filterData(_ sender: UITextField){
@@ -184,6 +202,13 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
         guard let range = Range(range, in: currentText) else { return false }
         let updatedText = currentText.replacingCharacters(in: range, with: string)
         
+        if updatedText.isEmpty {
+            filteredCategories = categories
+        } else {
+            filteredCategories = categories.filter { category in
+                category.name.localizedCaseInsensitiveContains(updatedText)
+            }
+        }
         categoriesCollectionView.reloadData()
         
         return true
@@ -192,20 +217,21 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categories.count
+        return filteredCategories.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCollectionViewCell.identifier, for: indexPath) as? CategoriesCollectionViewCell else {
             return UICollectionViewCell()
         }
-        let category = categories[indexPath.row]
+        let category = filteredCategories[indexPath.row]
         cell.configure(with: category)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        navigationController?.pushViewController(CategoryViewController(), animated: true)
+        let vc = BankCardViewController(viewModel: viewModel)
+        navigationController?.pushViewController(vc, animated: true)
 //        present(CategoryViewController(), animated: true, completion: nil)
     }
     
@@ -233,8 +259,14 @@ extension MainViewController {
 }
 
 struct MainViewControllerRepresentable: UIViewControllerRepresentable {
+    private let viewModel: BigViewModel
+    
+    init(viewModel: BigViewModel) {
+        self.viewModel = viewModel
+    }
+    
     func makeUIViewController(context: Context) -> MainViewController {
-        let vc = MainViewController()
+        let vc = MainViewController(viewModel: viewModel)
         vc.navigationItem.hidesBackButton = true
         return vc
     }
@@ -257,5 +289,17 @@ extension UIImage {
         let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return resizedImage ?? self
+    }
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
