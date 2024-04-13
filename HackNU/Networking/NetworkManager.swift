@@ -107,7 +107,7 @@ extension NetworkManager {
 
 extension NetworkManager {
     func getBankCard(by bankId: Int) async -> Result<[BankCard], Error> {
-        let url = URL(string: "\(APIConstants.baseURL)/bank-cards?page=0&size=20")!
+        let url = URL(string: "http://172.20.10.4:8080/bank-cards?bankId=\(bankId)&page=0&size=20")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

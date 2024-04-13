@@ -10,7 +10,7 @@ struct BankCard: Codable {
     let id: Int
     let bank: Bank
     let name: String
-    let image: String
+    let image: String?
     let comment: String?
 }
 
