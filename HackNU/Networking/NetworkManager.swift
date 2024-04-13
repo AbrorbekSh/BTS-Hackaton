@@ -106,7 +106,7 @@ extension NetworkManager {
 
 extension NetworkManager {
     func getBankCard(by bankId: Int) async -> Result<[BankCard], Error> {
-        let url = URL(string: "http://172.20.10.2:8080/bank-cards?bankId=\(bankId)&page=0&size=20")!
+        let url = URL(string: "http://172.20.10.4:8080/bank-cards?bankId=\(bankId)&page=0&size=20")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -150,7 +150,8 @@ extension NetworkManager {
 
 extension NetworkManager {
     func addNewOffer(offerData: NewOfferRequest) async throws -> Bool {
-            let url = URL(string: "http://172.20.10.2:8080/offers")!
+        
+            let url = URL(string: "http://172.20.10.4:8080/offers")!
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -166,6 +167,25 @@ extension NetworkManager {
             return true
         }
 }
+
+extension NetworkManager {
+    func getCards(userId: Int) async throws -> [BankCardDetails] {
+        let url = URL(string: "http://172.20.10.4:8080/user-cards?userId=\(userId)&page=0&size=20")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            throw NSError(domain: "", code: (response as? HTTPURLResponse)?.statusCode ?? 500, userInfo: ["response": "Failed to fetch bank cards with status code: \((response as? HTTPURLResponse)?.statusCode ?? 0)"])
+        }
+
+        let decoder = JSONDecoder()
+        let responseData = try decoder.decode(BankCardsResponse.self, from: data)
+        return responseData.content
+    }
+}
+
 
 struct CardAdditionRequest: Codable {
     var userId: Int

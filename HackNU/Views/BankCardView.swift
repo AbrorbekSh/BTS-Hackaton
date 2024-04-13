@@ -139,15 +139,15 @@ final class CardView: UIView {
     
     func changeGradinet() {
         gradientLayer?.colors = [
-                                UIColor(hex: "#22256E").cgColor, UIColor(hex: "#16C0C0").cgColor,]
+                                UIColor(hex: "#006C34").cgColor, UIColor(hex: "#DACE23").cgColor,]
     }
     
     private func setupGradient() {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = bounds
         gradientLayer.cornerRadius = 15
-        gradientLayer.colors = [UIColor(hex: "#2E3192").cgColor,
-                                UIColor(hex: "#1BFFFF").cgColor]
+        gradientLayer.colors = [UIColor(hex: "#009245").cgColor,
+                                UIColor(hex: "#FCEE21").cgColor]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint(x: 1, y: 1)
         layer.insertSublayer(gradientLayer, at: 0)

@@ -1,5 +1,5 @@
 struct APIConstants {
-    public static let baseURL: String = "http://172.20.10.2:8080"
+    public static let baseURL: String = "http://172.20.10.4:8080"
     static let id: String = "id"
     static let email: String = "email"
     static let name: String = "name"

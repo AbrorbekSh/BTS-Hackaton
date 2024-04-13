@@ -110,6 +110,7 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
         hideKeyboardWhenTappedAround()
         loadBanks()
         fetchCategories()
+        fetchCards()
         view.backgroundColor = .black
         view.addSubview(searchTextField)
         view.addSubview(button)
@@ -151,6 +152,21 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
                 }
             case .failure(let error):
                 print("Failed to fetch categories: \(error)")
+            }
+        }
+    }
+    
+    private func fetchCards() {
+        Task {
+            do {
+                let fetchedCards = try await NetworkManager.shared.getCards(userId: self.viewModel.curUser.id)
+                DispatchQueue.main.async {
+                    self.viewModel.bankCards = fetchedCards // Assuming there's a bankCards array in your viewModel
+                    self.cards = fetchedCards // If you store the cards locally in the controller
+                    self.tableView.reloadData()
+                }
+            } catch let error {
+                print("Failed to fetch bank cards: \(error)")
             }
         }
     }

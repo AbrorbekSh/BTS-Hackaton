@@ -34,7 +34,7 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Ilyas"
+        label.text = ""
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.textAlignment = .center
         label.textColor = .white
@@ -57,10 +57,17 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
     
     // Logout button
     private lazy var logoutButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        let button = UIButton()
         button.setTitle("Выйти", for: .normal)
-        button.tintColor = .systemRed
+        button.backgroundColor = UIColor(ColorScheme.lemonYellow)
+        button.setTitleColor(.black, for: .normal)
+        button.layer.cornerRadius = 15
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 2)
+        button.layer.shadowRadius = 4
+        button.layer.shadowOpacity = 0.3
         button.addTarget(self, action: #selector(logoutButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -78,6 +85,7 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
         
         // Set up constraints
         setupConstraints()
+        nameLabel.text = "Здравствуйте, \(viewModel.curUser.name)"
         
         // Set the table view delegate and data source
         tableView.delegate = self
@@ -101,6 +109,8 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
         
         // Logout button constraints
         NSLayoutConstraint.activate([
+            logoutButton.widthAnchor.constraint(equalToConstant: 200),
+            logoutButton.heightAnchor.constraint(equalToConstant: 50),
             logoutButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             logoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])

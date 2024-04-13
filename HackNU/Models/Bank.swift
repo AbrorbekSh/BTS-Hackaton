@@ -25,3 +25,18 @@ struct BanksResponse: Codable {
     let totalPages: Int
     let totalElements: Int
 }
+
+struct BankCardsResponse: Codable {
+    let content: [BankCardDetails]
+    let totalPages: Int
+    let totalElements: Int
+}
+
+// Define a structure that includes User and BankCard as nested objects
+struct BankCardDetails: Codable {
+    let user: User
+    let bankCard: BankCard
+    let name: String?
+    let cardNumber: String?
+    let validUntil: String?
+}
