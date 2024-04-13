@@ -23,6 +23,7 @@ struct BankCardView: View {
         .padding(.horizontal)
     }
 }
+
 struct CardTypeView: View {
     let cardType: BankCard
     var isSelected: Bool

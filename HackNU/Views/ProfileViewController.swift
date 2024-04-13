@@ -1,6 +1,28 @@
 import UIKit
 
-class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+final class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    private let viewModel: BigViewModel
+    private var user = User() {
+        didSet {
+            nameLabel.text = user.name
+        }
+    }
+    
+    private var cards:[BankCard] = [] { 
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
+    init(viewModel: BigViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // Name label
     private let nameLabel: UILabel = {
@@ -25,8 +47,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     private lazy var logoutButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Logout", for: .normal)
-        button.tintColor = .black
+        button.setTitle("Выйти", for: .normal)
+        button.tintColor = .systemRed
         button.addTarget(self, action: #selector(logoutButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -74,7 +96,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // UITableViewDataSource methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4 // Return the number of items in the profile list
+        return cards.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -91,8 +113,22 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // Logout button action
     @objc private func logoutButtonTapped() {
-        // Perform logout action
         print("Logout button tapped")
-        // Add your logout logic here
+    }
+}
+
+extension ProfileViewController {
+    func loadCards() {
+        Task {
+            let result = await NetworkManager.shared.getBanks()
+            switch result {
+            case .success(let _):
+                DispatchQueue.main.async {
+                    self.cards = []
+                }
+            case .failure(let error):
+                print("Failed to fetch banks: \(error)")
+            }
+        }
     }
 }

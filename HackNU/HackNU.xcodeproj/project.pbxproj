@@ -14,6 +14,9 @@
 		2161E9252BCA7D0400327392 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161E9242BCA7D0400327392 /* CategoryViewController.swift */; };
 		2161E9272BCA88B200327392 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161E9262BCA88B200327392 /* ProfileViewController.swift */; };
 		2161E9292BCA9DDF00327392 /* AddCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161E9282BCA9DDF00327392 /* AddCardView.swift */; };
+		2161E92B2BCAC18900327392 /* BankCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161E92A2BCAC18900327392 /* BankCardView.swift */; };
+		2161E92D2BCAC24A00327392 /* BankCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161E92C2BCAC24A00327392 /* BankCardViewController.swift */; };
+		2161E92F2BCAC31900327392 /* BankCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161E92E2BCAC31900327392 /* BankCardTableViewCell.swift */; };
 		FE4CDCE22BCA69B9006A7995 /* TextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCE12BCA69B9006A7995 /* TextFieldModifier.swift */; };
 		FE4CDCE42BCA6A03006A7995 /* ButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCE32BCA6A03006A7995 /* ButtonModifier.swift */; };
 		FE4CDCE62BCA6B16006A7995 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCE52BCA6B16006A7995 /* GlobalConstants.swift */; };
@@ -41,6 +44,9 @@
 		2161E9242BCA7D0400327392 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		2161E9262BCA88B200327392 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		2161E9282BCA9DDF00327392 /* AddCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCardView.swift; sourceTree = "<group>"; };
+		2161E92A2BCAC18900327392 /* BankCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCardView.swift; sourceTree = "<group>"; };
+		2161E92C2BCAC24A00327392 /* BankCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCardViewController.swift; sourceTree = "<group>"; };
+		2161E92E2BCAC31900327392 /* BankCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCardTableViewCell.swift; sourceTree = "<group>"; };
 		FE4CDCE12BCA69B9006A7995 /* TextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldModifier.swift; sourceTree = "<group>"; };
 		FE4CDCE32BCA6A03006A7995 /* ButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonModifier.swift; sourceTree = "<group>"; };
 		FE4CDCE52BCA6B16006A7995 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
@@ -114,6 +120,9 @@
 				FE4CDCFC2BCA7AC2006A7995 /* CategoriesCollectionViewCell.swift */,
 				2161E9242BCA7D0400327392 /* CategoryViewController.swift */,
 				2161E9262BCA88B200327392 /* ProfileViewController.swift */,
+				2161E92A2BCAC18900327392 /* BankCardView.swift */,
+				2161E92C2BCAC24A00327392 /* BankCardViewController.swift */,
+				2161E92E2BCAC31900327392 /* BankCardTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -228,10 +237,12 @@
 				FE4CDCF62BCA77E6006A7995 /* toJSON.swift in Sources */,
 				FE4CDCE42BCA6A03006A7995 /* ButtonModifier.swift in Sources */,
 				FE4CDCFD2BCA7AC2006A7995 /* CategoriesCollectionViewCell.swift in Sources */,
+				2161E92F2BCAC31900327392 /* BankCardTableViewCell.swift in Sources */,
 				FE4CDD012BCA941F006A7995 /* BigViewModel.swift in Sources */,
 				FE4CDD032BCAA216006A7995 /* Category.swift in Sources */,
 				FE4CDD052BCABF56006A7995 /* Bank.swift in Sources */,
 				FE4CDCE22BCA69B9006A7995 /* TextFieldModifier.swift in Sources */,
+				2161E92B2BCAC18900327392 /* BankCardView.swift in Sources */,
 				2161E9252BCA7D0400327392 /* CategoryViewController.swift in Sources */,
 				2161E9272BCA88B200327392 /* ProfileViewController.swift in Sources */,
 				2161E8FF2BCA682C00327392 /* AppDelegate.swift in Sources */,
@@ -239,6 +250,7 @@
 				FE4CDCF92BCA7811006A7995 /* User.swift in Sources */,
 				FE4CDCE62BCA6B16006A7995 /* GlobalConstants.swift in Sources */,
 				2161E9012BCA682C00327392 /* SceneDelegate.swift in Sources */,
+				2161E92D2BCAC24A00327392 /* BankCardViewController.swift in Sources */,
 				FE4CDCFB2BCA7A8D006A7995 /* MainViewController.swift in Sources */,
 				FE4CDCEB2BCA6F55006A7995 /* LoginView.swift in Sources */,
 				2161E9292BCA9DDF00327392 /* AddCardView.swift in Sources */,

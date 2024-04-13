@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 
                 // Use a UIHostingController as window root view controller.
                 window.rootViewController = UIHostingController(rootView: registrationView)
-                
+//                window.rootViewController = BankCardViewController()
                 self.window = window
                 window.overrideUserInterfaceStyle = .dark
                 window.makeKeyAndVisible()
