@@ -41,15 +41,6 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
         return collection
     }()
     
-    private let blackView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.backgroundColor = .black
-        
-        return view
-    }()
-    
     private lazy var addCardButton: UIButton = {
         let button = UIButton()
         button.setTitle("Добавить карту", for: .normal)
@@ -80,6 +71,7 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
         textField.font = UIFont(name: "Montserrat-SemiBold", size: 16)
         
         textField.leftViewMode = .always
+        textField.textColor = .black
         
         let button = UIButton(frame: CGRect(x: 12, y: 12, width: 22, height: 24))
         button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
@@ -132,17 +124,6 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
         
         setUpConstraints()
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        view.addSubview(blackView)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-        NSLayoutConstraint.activate([
-            blackView.topAnchor.constraint(equalTo: view.topAnchor, constant: -20),
-            blackView.widthAnchor.constraint(equalToConstant: 50),
-            blackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -20),
-            blackView.heightAnchor.constraint(equalToConstant: 50),
-        ])
-    }
     
     @objc private func showProfile() {
         let profileVC = ProfileViewController(viewModel: viewModel)
@@ -176,8 +157,8 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
             searchTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            searchTextField.leadingAnchor.constraint(equalTo: button.trailingAnchor, constant: 10),
-            searchTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            searchTextField.trailingAnchor.constraint(equalTo: button.leadingAnchor, constant: -10),
             searchTextField.heightAnchor.constraint(equalToConstant: 50)
         ])
         
@@ -193,9 +174,10 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
             addCardButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             addCardButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             addCardButton.heightAnchor.constraint(equalToConstant: 50),
+            
             button.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
             button.widthAnchor.constraint(equalToConstant: 50),
-            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             button.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
@@ -229,6 +211,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return UICollectionViewCell()
         }
         let category = filteredCategories[indexPath.row]
+        cell.imageView.image = UIImage(named: filteredCategories[indexPath.row].name)
         cell.configure(with: category)
         return cell
     }

@@ -78,16 +78,15 @@ final class CategoriesCollectionViewCell: UICollectionViewCell {
         view.spacing = 10
         view.axis = .vertical
         view.distribution = .fillProportionally
-        view.alignment = .leading
+        view.alignment = .center
         
         return view
     }()
     
-    private let imageView: UIImageView = {
+    let imageView: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.clipsToBounds = true
-        image.contentMode = .scaleAspectFill
+        image.contentMode = .scaleAspectFit
         image.layer.cornerRadius = 20
         image.backgroundColor = .systemGray.withAlphaComponent(0.3)
         
@@ -97,7 +96,7 @@ final class CategoriesCollectionViewCell: UICollectionViewCell {
     var categoryName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         label.textColor = .white
         
         label.backgroundColor = .clear
