@@ -12,6 +12,10 @@
 		2161E9032BCA682C00327392 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161E9022BCA682C00327392 /* ViewController.swift */; };
 		2161E9082BCA682D00327392 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2161E9072BCA682D00327392 /* Assets.xcassets */; };
 		2161E90B2BCA682D00327392 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2161E9092BCA682D00327392 /* LaunchScreen.storyboard */; };
+		FE4CDCE02BCA68BE006A7995 /* AddCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCDF2BCA68BE006A7995 /* AddCategoryView.swift */; };
+		FE4CDCE22BCA69B9006A7995 /* TextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCE12BCA69B9006A7995 /* TextFieldModifier.swift */; };
+		FE4CDCE42BCA6A03006A7995 /* ButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCE32BCA6A03006A7995 /* ButtonModifier.swift */; };
+		FE4CDCE62BCA6B16006A7995 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCE52BCA6B16006A7995 /* GlobalConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +26,10 @@
 		2161E9072BCA682D00327392 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2161E90A2BCA682D00327392 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2161E90C2BCA682D00327392 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FE4CDCDF2BCA68BE006A7995 /* AddCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryView.swift; sourceTree = "<group>"; };
+		FE4CDCE12BCA69B9006A7995 /* TextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldModifier.swift; sourceTree = "<group>"; };
+		FE4CDCE32BCA6A03006A7995 /* ButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonModifier.swift; sourceTree = "<group>"; };
+		FE4CDCE52BCA6B16006A7995 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +46,9 @@
 		2161E8F22BCA682C00327392 = {
 			isa = PBXGroup;
 			children = (
+				FE4CDCE82BCA6E2F006A7995 /* Modifiers */,
+				FE4CDCE92BCA6E42006A7995 /* BrandBook */,
+				FE4CDCE72BCA6E18006A7995 /* Views */,
 				2161E8FD2BCA682C00327392 /* HackNU */,
 				2161E8FC2BCA682C00327392 /* Products */,
 			);
@@ -62,6 +73,31 @@
 				2161E90C2BCA682D00327392 /* Info.plist */,
 			);
 			path = HackNU;
+			sourceTree = "<group>";
+		};
+		FE4CDCE72BCA6E18006A7995 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FE4CDCDF2BCA68BE006A7995 /* AddCategoryView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FE4CDCE82BCA6E2F006A7995 /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				FE4CDCE12BCA69B9006A7995 /* TextFieldModifier.swift */,
+				FE4CDCE32BCA6A03006A7995 /* ButtonModifier.swift */,
+			);
+			path = Modifiers;
+			sourceTree = "<group>";
+		};
+		FE4CDCE92BCA6E42006A7995 /* BrandBook */ = {
+			isa = PBXGroup;
+			children = (
+				FE4CDCE52BCA6B16006A7995 /* GlobalConstants.swift */,
+			);
+			path = BrandBook;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -134,9 +170,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE4CDCE42BCA6A03006A7995 /* ButtonModifier.swift in Sources */,
 				2161E9032BCA682C00327392 /* ViewController.swift in Sources */,
+				FE4CDCE22BCA69B9006A7995 /* TextFieldModifier.swift in Sources */,
 				2161E8FF2BCA682C00327392 /* AppDelegate.swift in Sources */,
+				FE4CDCE62BCA6B16006A7995 /* GlobalConstants.swift in Sources */,
 				2161E9012BCA682C00327392 /* SceneDelegate.swift in Sources */,
+				FE4CDCE02BCA68BE006A7995 /* AddCategoryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
