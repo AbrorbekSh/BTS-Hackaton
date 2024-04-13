@@ -31,21 +31,20 @@ struct AddCardView: View {
     let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
     var body: some View {
         GeometryReader { geometry in
-            VStack(spacing: geometry.size.height * RegLogConstants.verticalSpacing) {
-                Text("Выберите Банк")
+            VStack(alignment: .leading, spacing: geometry.size.height * RegLogConstants.verticalSpacing) {
+                Text("Выберите банк:")
                     .padding()
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(banks, id: \.id) { bank in
                         BankCardView(bank: bank, isSelected: selectedBankId == bank.id)
                             .onTapGesture {
                                 selectedBankId = bank.id
+//                                fetchBankCardTypes(bankId: bank.id)
                             }
                     }
                 }
                 .padding()
-                
-                TextField("Тип карты",text: $email)
-                    .modifier(TextFieldModifier())
+                Text("Выберите тип карты:")
                 TextField("Номер карты",text: $email)
                     .modifier(TextFieldModifier())
                 TextField("Срок Действия",text: $email)
