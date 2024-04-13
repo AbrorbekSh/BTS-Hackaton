@@ -145,6 +145,7 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
             switch result {
             case .success(let fetchedCategories):
                 DispatchQueue.main.async {
+                    self.viewModel.categories = fetchedCategories
                     self.categories = fetchedCategories
                     self.categoriesCollectionView.reloadData()
                 }

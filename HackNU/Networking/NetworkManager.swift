@@ -148,6 +148,25 @@ extension NetworkManager {
     }
 }
 
+extension NetworkManager {
+    func addNewOffer(offerData: NewOfferRequest) async throws -> Bool {
+            let url = URL(string: "http://172.20.10.2:8080/offers")!
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+            let jsonData = try JSONEncoder().encode(offerData)
+            request.httpBody = jsonData
+
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 201 else {
+                throw NSError(domain: "", code: (response as? HTTPURLResponse)?.statusCode ?? 500, userInfo: nil)
+            }
+
+            return true
+        }
+}
+
 struct CardAdditionRequest: Codable {
     var userId: Int
     var bankCardId: Int
@@ -155,5 +174,16 @@ struct CardAdditionRequest: Codable {
     var cardNumber: String?
     var validUntil: String?
 }
+
+struct NewOfferRequest: Codable {
+    var userId: Int
+    var bankCardId: Int
+    var categoryId: Int
+    var percentage: Double
+    var conditions: String
+    var dateFrom: String
+    var dateTo: String
+}
+
 
 
