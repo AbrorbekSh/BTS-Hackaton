@@ -51,9 +51,7 @@ struct LoginView: View {
                 //                        .frame(maxWidth: .infinity, alignment: .center)
                 //                        .padding(.top, geometry.size.height * RegLogConstants.bottomViewBottomPadding)
                 //                }
-                NavigationLink(destination: MainViewControllerRepresentable(viewModel: viewModel), isActive: $shouldNavigate) {
-                                    EmptyView()
-                                }
+                
                 
                 Spacer()
                 Divider()
@@ -75,6 +73,9 @@ struct LoginView: View {
             }
             .navigationBarBackButtonHidden(true)
             .padding(.horizontal)
+        }
+        .fullScreenCover(isPresented: $shouldNavigate) {
+            MainViewControllerRepresentable(viewModel: viewModel)
         }
     }
     

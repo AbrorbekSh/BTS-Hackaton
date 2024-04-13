@@ -34,9 +34,6 @@ struct RegistrationView: View {
                         )
                         .padding(.vertical, geometry.size.height * RegLogConstants.logoVerticalPadding)
                         .foregroundColor(ColorScheme.lemonYellow)
-                    NavigationLink(destination: MainViewControllerRepresentable(viewModel: viewModel), isActive: $shouldNavigate) {
-                        EmptyView()
-                    }
                     VStack {
                         TextField("Email",text: $email)
                             .modifier(TextFieldModifier())
@@ -90,6 +87,10 @@ struct RegistrationView: View {
                 }
                 .padding(.horizontal)
             }
+            
+        }
+        .fullScreenCover(isPresented: $shouldNavigate) {
+            MainViewControllerRepresentable(viewModel: viewModel)
         }
     }
     private func registerUser() {

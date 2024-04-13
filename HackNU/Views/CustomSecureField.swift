@@ -35,6 +35,6 @@ struct CustomSecureField: View {
 
 private struct Constants {
     static let rightImageWidth: CGFloat = 20
-    static let rightImageHeight: CGFloat = 9
+    static let rightImageHeight: CGFloat = 15
     static let inputViewHeight: CGFloat = 45
 }

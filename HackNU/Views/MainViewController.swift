@@ -55,7 +55,7 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
         button.setTitle("Добавить карту", for: .normal)
         button.backgroundColor = UIColor(ColorScheme.lemonYellow)
         button.setTitleColor(.black, for: .normal)
-        button.layer.cornerRadius = 25
+        button.layer.cornerRadius = 15
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.shadowColor = UIColor.black.cgColor
@@ -70,7 +70,7 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = .white
-        textField.layer.cornerRadius = 24
+        textField.layer.cornerRadius = 15
         textField.layer.borderWidth = 2
         textField.layer.borderColor = UIColor.black.cgColor
         textField.attributedPlaceholder = NSAttributedString(
@@ -114,7 +114,8 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        hideKeyboardWhenTappedAround() 
+        self.navigationItem.hidesBackButton = true
+        hideKeyboardWhenTappedAround()
         loadBanks()
         fetchCategories()
         view.backgroundColor = .black
@@ -134,6 +135,7 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         view.addSubview(blackView)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
         NSLayoutConstraint.activate([
             blackView.topAnchor.constraint(equalTo: view.topAnchor, constant: -20),
             blackView.widthAnchor.constraint(equalToConstant: 50),
@@ -143,7 +145,9 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc private func showProfile() {
-        navigationController?.pushViewController(ProfileViewController(viewModel: viewModel), animated: true)
+        let profileVC = ProfileViewController(viewModel: viewModel)
+        let navController = UINavigationController(rootViewController: profileVC)
+        self.present(navController, animated: true, completion: nil)
     }
     
     @objc private func filterData(_ sender: UITextField){
@@ -277,7 +281,7 @@ struct MainViewControllerRepresentable: UIViewControllerRepresentable {
 
 extension MainViewController {
     @objc func addCardButtonPressed() {
-        let addCardVC = UIHostingController(rootView: AddCardView(banks: banks))
+        let addCardVC = UIHostingController(rootView: AddCardView(banks: banks, viewModel: viewModel))
         self.present(addCardVC, animated: true, completion: nil)
     }
 }

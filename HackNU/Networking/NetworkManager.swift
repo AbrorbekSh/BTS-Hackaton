@@ -106,7 +106,7 @@ extension NetworkManager {
 
 extension NetworkManager {
     func getBankCard(by bankId: Int) async -> Result<[BankCard], Error> {
-        let url = URL(string: "http://172.20.10.4:8080/bank-cards?bankId=\(bankId)&page=0&size=20")!
+        let url = URL(string: "http://172.20.10.2:8080/bank-cards?bankId=\(bankId)&page=0&size=20")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -120,6 +120,38 @@ extension NetworkManager {
             return .failure(error)
         }
     }
+}
+
+extension NetworkManager {
+    func addBankCard(_ requestData: CardAdditionRequest) async throws -> Bool {
+        guard let url = URL(string: "http://172.20.10.2:8080/user-cards") else {
+            return false
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let requestData = toJSON([
+            "userId": requestData.userId,
+            "bankCardId": requestData.bankCardId
+        ])
+        request.httpBody = requestData
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            return false
+        }
+
+        // You might want to decode the response if there's any specific data you need to check
+        return true
+    }
+}
+
+struct CardAdditionRequest: Codable {
+    var userId: Int
+    var bankCardId: Int
+    var name: String?
+    var cardNumber: String?
+    var validUntil: String?
 }
 
 

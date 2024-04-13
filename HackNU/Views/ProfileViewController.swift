@@ -28,7 +28,7 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Ilyas" // Customize with actual user name
+        label.text = "Ilyas"
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.textAlignment = .center
         label.textColor = .white
@@ -38,10 +38,16 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
     // Table view
     private let tableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = .black
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         return tableView
     }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
     
     // Logout button
     private lazy var logoutButton: UIButton = {
