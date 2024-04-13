@@ -219,8 +219,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = BankCardViewController(viewModel: viewModel)
-        navigationController?.pushViewController(vc, animated: true)
-//        present(CategoryViewController(), animated: true, completion: nil)
+        let navController = UINavigationController(rootViewController: vc)
+        present(navController, animated: true, completion: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

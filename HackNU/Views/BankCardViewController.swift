@@ -21,7 +21,13 @@ final class BankCardViewController: UIViewController, UITableViewDataSource, UIT
         type: .main
     )
     
-    var cards: [BankCard] = [] {
+    private var cards:[BankCard] = [
+        BankCard(id: 12, bank: Bank(id: 12, name: "Jusan", image: nil), name: "Jusan", image: nil, comment: nil),
+        BankCard(id: 12, bank: Bank(id: 12, name: "Jusan", image: nil), name: "Jusan", image: nil, comment: nil),
+        BankCard(id: 12, bank: Bank(id: 12, name: "Jusan", image: nil), name: "Jusan", image: nil, comment: nil),
+        BankCard(id: 12, bank: Bank(id: 12, name: "Jusan", image: nil), name: "Jusan", image: nil, comment: nil),
+        BankCard(id: 12, bank: Bank(id: 12, name: "Jusan", image: nil), name: "Jusan", image: nil, comment: nil),
+    ] {
         didSet {
             tableView.reloadData()
         }
@@ -74,6 +80,7 @@ final class BankCardViewController: UIViewController, UITableViewDataSource, UIT
         bankCardView.bonus = "Bonus: 150 points"
         bankCardView.cardType = "Visa"
 
+        tableView.backgroundColor = .black
         // Add the bank card view to the view controller's view
         view.addSubview(bankCardView)
         view.addSubview(titleLabel)
@@ -90,7 +97,7 @@ final class BankCardViewController: UIViewController, UITableViewDataSource, UIT
         
         NSLayoutConstraint.activate([
             bankCardView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            bankCardView.heightAnchor.constraint(equalToConstant: 200),
+            bankCardView.heightAnchor.constraint(equalToConstant: 170),
             bankCardView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             bankCardView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
@@ -106,6 +113,7 @@ final class BankCardViewController: UIViewController, UITableViewDataSource, UIT
         view.addSubview(tableView)
         
         // Set up Auto Layout constraints for the table view
+        tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: bankCardView.bottomAnchor, constant: 20),
@@ -134,6 +142,8 @@ final class BankCardViewController: UIViewController, UITableViewDataSource, UIT
         cell.bankCardView.bonus = card.name
         cell.bankCardView.cardType = card.name
         
+        cell.changeGradient()
+        
         return cell
     }
     
@@ -150,7 +160,7 @@ extension BankCardViewController {
                 case .success(let cards):
                     DispatchQueue.main.async {
                         // Assuming your view model has a `banks` property
-                        self.cards = cards
+//                        self.cards = cards
                     }
                 case .failure(let error):
                     print("Failed to fetch banks: \(error)")
