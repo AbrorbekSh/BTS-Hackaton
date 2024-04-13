@@ -21,7 +21,16 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
         return collection
     }()
     
-    private let addCardButton: UIButton = {
+    private let blackView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.backgroundColor = .black
+        
+        return view
+    }()
+    
+    private lazy var addCardButton: UIButton = {
         let button = UIButton()
         button.setTitle("Добавить карту", for: .normal)
         button.backgroundColor = UIColor(ColorScheme.lemonYellow)
@@ -62,11 +71,33 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
         return textField
     }()
     
+    private lazy var button: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let systemImageName = "text.justify"
+        
+        // Get the system image
+        if let systemImage = UIImage(systemName: systemImageName) {
+            // Resize the image
+            let newSize = CGSize(width: 30, height: 30) // Adjust these values to change the size
+            let resizedImage = systemImage.resized(to: newSize)
+            
+            // Set the resized image to the button
+            button.setImage(resizedImage, for: .normal)
+        }
+        
+        button.tintColor = .white
+        button.addTarget(self, action: #selector(showProfile), for: .touchUpInside)
+        
+        return button
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchCategories()
         view.backgroundColor = .black
         view.addSubview(searchTextField)
+        view.addSubview(button)
         
         categoriesCollectionView.delegate = self
         categoriesCollectionView.dataSource = self
@@ -77,6 +108,20 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
         searchTextField.addTarget(self, action: #selector(openReccomendations), for: .editingDidBegin)
         
         setUpConstraints()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        view.addSubview(blackView)
+        NSLayoutConstraint.activate([
+            blackView.topAnchor.constraint(equalTo: view.topAnchor, constant: -20),
+            blackView.widthAnchor.constraint(equalToConstant: 50),
+            blackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -20),
+            blackView.heightAnchor.constraint(equalToConstant: 50),
+        ])
+    }
+    
+    @objc private func showProfile() {
+        navigationController?.pushViewController(ProfileViewController(), animated: true)
     }
     
     @objc private func filterData(_ sender: UITextField){
@@ -104,16 +149,16 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
     
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
-            searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            searchTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            searchTextField.leadingAnchor.constraint(equalTo: button.trailingAnchor, constant: 10),
             searchTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             searchTextField.heightAnchor.constraint(equalToConstant: 50)
         ])
         
         NSLayoutConstraint.activate([
             categoriesCollectionView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 20),
-            categoriesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            categoriesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            categoriesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            categoriesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             categoriesCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
@@ -121,7 +166,11 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
             addCardButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             addCardButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             addCardButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            addCardButton.heightAnchor.constraint(equalToConstant: 50)
+            addCardButton.heightAnchor.constraint(equalToConstant: 50),
+            button.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            button.widthAnchor.constraint(equalToConstant: 50),
+            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            button.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
     
@@ -152,17 +201,21 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        navigationController?.pushViewController(CategoryViewController(), animated: true)
+//        present(CategoryViewController(), animated: true, completion: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.size.width/2-24, height: 90)
+        return CGSize(width: view.frame.size.width/2-30, height: 90)
     }
     
 }
 
 struct MainViewControllerRepresentable: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> MainViewController {
-        MainViewController()
+        let vc = MainViewController()
+        vc.navigationItem.hidesBackButton = true
+        return vc
     }
     
     func updateUIViewController(_ uiViewController: MainViewController, context: Context) {
@@ -176,3 +229,12 @@ extension MainViewController {
     }
 }
 
+extension UIImage {
+    func resized(to size: CGSize) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        self.draw(in: CGRect(origin: .zero, size: size))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return resizedImage ?? self
+    }
+}

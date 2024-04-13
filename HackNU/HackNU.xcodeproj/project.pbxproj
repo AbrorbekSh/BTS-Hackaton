@@ -9,10 +9,11 @@
 /* Begin PBXBuildFile section */
 		2161E8FF2BCA682C00327392 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161E8FE2BCA682C00327392 /* AppDelegate.swift */; };
 		2161E9012BCA682C00327392 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161E9002BCA682C00327392 /* SceneDelegate.swift */; };
-		2161E9032BCA682C00327392 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161E9022BCA682C00327392 /* ViewController.swift */; };
 		2161E9082BCA682D00327392 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2161E9072BCA682D00327392 /* Assets.xcassets */; };
 		2161E90B2BCA682D00327392 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2161E9092BCA682D00327392 /* LaunchScreen.storyboard */; };
-		FE4CDCE02BCA68BE006A7995 /* AddCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCDF2BCA68BE006A7995 /* AddCardView.swift */; };
+		2161E9252BCA7D0400327392 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161E9242BCA7D0400327392 /* CategoryViewController.swift */; };
+		2161E9272BCA88B200327392 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161E9262BCA88B200327392 /* ProfileViewController.swift */; };
+		2161E9292BCA9DDF00327392 /* AddCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161E9282BCA9DDF00327392 /* AddCardView.swift */; };
 		FE4CDCE22BCA69B9006A7995 /* TextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCE12BCA69B9006A7995 /* TextFieldModifier.swift */; };
 		FE4CDCE42BCA6A03006A7995 /* ButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCE32BCA6A03006A7995 /* ButtonModifier.swift */; };
 		FE4CDCE62BCA6B16006A7995 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCE52BCA6B16006A7995 /* GlobalConstants.swift */; };
@@ -33,11 +34,12 @@
 		2161E8FB2BCA682C00327392 /* HackNU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackNU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2161E8FE2BCA682C00327392 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2161E9002BCA682C00327392 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		2161E9022BCA682C00327392 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2161E9072BCA682D00327392 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2161E90A2BCA682D00327392 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2161E90C2BCA682D00327392 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FE4CDCDF2BCA68BE006A7995 /* AddCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardView.swift; sourceTree = "<group>"; };
+		2161E9242BCA7D0400327392 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		2161E9262BCA88B200327392 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		2161E9282BCA9DDF00327392 /* AddCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCardView.swift; sourceTree = "<group>"; };
 		FE4CDCE12BCA69B9006A7995 /* TextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldModifier.swift; sourceTree = "<group>"; };
 		FE4CDCE32BCA6A03006A7995 /* ButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonModifier.swift; sourceTree = "<group>"; };
 		FE4CDCE52BCA6B16006A7995 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
@@ -92,7 +94,6 @@
 			children = (
 				2161E8FE2BCA682C00327392 /* AppDelegate.swift */,
 				2161E9002BCA682C00327392 /* SceneDelegate.swift */,
-				2161E9022BCA682C00327392 /* ViewController.swift */,
 				2161E9072BCA682D00327392 /* Assets.xcassets */,
 				2161E9092BCA682D00327392 /* LaunchScreen.storyboard */,
 				2161E90C2BCA682D00327392 /* Info.plist */,
@@ -103,12 +104,14 @@
 		FE4CDCE72BCA6E18006A7995 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2161E9282BCA9DDF00327392 /* AddCardView.swift */,
 				FE4CDCFA2BCA7A8D006A7995 /* MainViewController.swift */,
-				FE4CDCDF2BCA68BE006A7995 /* AddCardView.swift */,
 				FE4CDCEA2BCA6F55006A7995 /* LoginView.swift */,
 				FE4CDCEE2BCA71BE006A7995 /* RegistrationView.swift */,
 				FE4CDCEC2BCA6FAD006A7995 /* CustomSecureField.swift */,
 				FE4CDCFC2BCA7AC2006A7995 /* CategoriesCollectionViewCell.swift */,
+				2161E9242BCA7D0400327392 /* CategoryViewController.swift */,
+				2161E9262BCA88B200327392 /* ProfileViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -226,6 +229,8 @@
 				2161E9032BCA682C00327392 /* ViewController.swift in Sources */,
 				FE4CDD032BCAA216006A7995 /* Category.swift in Sources */,
 				FE4CDCE22BCA69B9006A7995 /* TextFieldModifier.swift in Sources */,
+				2161E9252BCA7D0400327392 /* CategoryViewController.swift in Sources */,
+				2161E9272BCA88B200327392 /* ProfileViewController.swift in Sources */,
 				2161E8FF2BCA682C00327392 /* AppDelegate.swift in Sources */,
 				FE4CDCF12BCA76FF006A7995 /* NetworkManager.swift in Sources */,
 				FE4CDCF92BCA7811006A7995 /* User.swift in Sources */,
@@ -233,8 +238,8 @@
 				2161E9012BCA682C00327392 /* SceneDelegate.swift in Sources */,
 				FE4CDCFB2BCA7A8D006A7995 /* MainViewController.swift in Sources */,
 				FE4CDCEB2BCA6F55006A7995 /* LoginView.swift in Sources */,
+				2161E9292BCA9DDF00327392 /* AddCardView.swift in Sources */,
 				FE4CDCED2BCA6FAD006A7995 /* CustomSecureField.swift in Sources */,
-				FE4CDCE02BCA68BE006A7995 /* AddCardView.swift in Sources */,
 				FE4CDCEF2BCA71BE006A7995 /* RegistrationView.swift in Sources */,
 				FE4CDCF42BCA77C5006A7995 /* APIConstants.swift in Sources */,
 			);
