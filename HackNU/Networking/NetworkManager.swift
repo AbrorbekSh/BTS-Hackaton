@@ -58,6 +58,28 @@ public class NetworkManager {
             return Result.failure(error)
         }
     }
+
     
     public static let shared: NetworkManager = NetworkManager()
+}
+
+extension NetworkManager {
+    public func getCategories() async -> Result<[Category], Error> {
+            guard let url = URL(string: APIConstants.baseURL + APIConstants.Handles.categories.rawValue) else {
+                return .failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"]))
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+            request.setValue(APIConstants.HeaderValues.json.rawValue, forHTTPHeaderField: APIConstants.HeaderFields.contentType.rawValue)
+            
+            do {
+                let (data, _) = try await URLSession.shared.data(for: request)
+                let decoder = JSONDecoder()
+                let response = try decoder.decode(CategoryResponse.self, from: data)
+                return .success(response.content)
+            } catch {
+                return .failure(error)
+            }
+        }
 }

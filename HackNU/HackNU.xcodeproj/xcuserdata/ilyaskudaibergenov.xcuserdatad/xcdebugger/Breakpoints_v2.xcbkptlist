@@ -34,50 +34,6 @@
             endingLineNumber = "98"
             landmarkName = "registerUser()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "1BA529B8-13D3-4526-A42A-F536C1A56F71 - b8dfd956ed963ea"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async -&gt; () in HackNU.RegistrationView.registerUser() -&gt; ()"
-                  moduleName = "HackNU"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ilyaskudaibergenov/Desktop/hacknu2024/BTS-Hackaton/HackNU/Views/RegistrationView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "98"
-                  endingLineNumber = "98">
-               </Location>
-               <Location
-                  uuid = "1BA529B8-13D3-4526-A42A-F536C1A56F71 - b8dfd956ed963ea"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async -&gt; () in HackNU.RegistrationView.registerUser() -&gt; ()"
-                  moduleName = "HackNU"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ilyaskudaibergenov/Desktop/hacknu2024/BTS-Hackaton/HackNU/Views/RegistrationView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "98"
-                  endingLineNumber = "98">
-               </Location>
-               <Location
-                  uuid = "1BA529B8-13D3-4526-A42A-F536C1A56F71 - b8dfd956ed963ea"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async -&gt; () in HackNU.RegistrationView.registerUser() -&gt; ()"
-                  moduleName = "HackNU"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ilyaskudaibergenov/Desktop/hacknu2024/BTS-Hackaton/HackNU/Views/RegistrationView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "98"
-                  endingLineNumber = "98">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

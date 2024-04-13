@@ -97,7 +97,9 @@ struct RegistrationView: View {
             switch result {
             case .success(let data):
                 guard let data = data else {return}
-                print(data)
+                if data["id"] == nil {
+                    return
+                }
                 self.viewModel.userLoggedIn = true
                 self.viewModel.curUser = User(id: data["id"] as! Int, name: data["name"] as! String, email: data[
                     "email"] as! String)

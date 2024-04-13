@@ -12,6 +12,7 @@ struct APIConstants {
         case users = "/users"
         case user = "/user"
         case events = "/events"
+        case categories = "/categories?page=0&size=20"
     }
     
     enum RESTMethod: String {

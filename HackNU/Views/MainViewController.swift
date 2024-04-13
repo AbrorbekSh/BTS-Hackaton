@@ -2,15 +2,14 @@ import UIKit
 import SwiftUI
 
 final class MainViewController: UIViewController, UITextFieldDelegate {
-    private let categories: [String] = ["Category 1", "Category 2", "Category 3", "Category 4", "Category 1", "Category 2", "Category 3", "Category 4"]
-    
+    private var categories: [Category] = []
     
     private let categoriesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 16
         layout.minimumInteritemSpacing = 16
-
+        
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.showsHorizontalScrollIndicator = false
@@ -37,7 +36,7 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
         button.addTarget(self, action: #selector(addCardButtonPressed), for: .touchUpInside)
         return button
     }()
-
+    
     private let searchTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -56,15 +55,16 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
         let button = UIButton(frame: CGRect(x: 12, y: 12, width: 22, height: 24))
         button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         button.tintColor = .black
-//        button.addTarget(MainViewController.self, action: #selector(mainButtonPressed), for: .touchUpInside)
+        //        button.addTarget(MainViewController.self, action: #selector(mainButtonPressed), for: .touchUpInside)
         let containerImageView = UIView(frame: CGRect(x: 0, y: 0, width: 48, height: 48))
         containerImageView.addSubview(button)
         textField.leftView = containerImageView
         return textField
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchCategories()
         view.backgroundColor = .black
         view.addSubview(searchTextField)
         
@@ -80,12 +80,27 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc private func filterData(_ sender: UITextField){
-
-     }
-     
-     @objc private func openReccomendations(){
-
-     }
+        
+    }
+    
+    @objc private func openReccomendations(){
+        
+    }
+    
+    private func fetchCategories() {
+        Task {
+            let result = await NetworkManager.shared.getCategories()
+            switch result {
+            case .success(let fetchedCategories):
+                DispatchQueue.main.async {
+                    self.categories = fetchedCategories
+                    self.categoriesCollectionView.reloadData()
+                }
+            case .failure(let error):
+                print("Failed to fetch categories: \(error)")
+            }
+        }
+    }
     
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
@@ -109,7 +124,7 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
             addCardButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
-
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // Combine current text with new text
         let currentText = textField.text ?? ""
@@ -124,15 +139,15 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 8
+        return categories.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCollectionViewCell.identifier, for: indexPath) as? CategoriesCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.categoryName.text = categories[indexPath.row]
-
+        let category = categories[indexPath.row]
+        cell.configure(with: category)
         return cell
     }
     
@@ -142,21 +157,22 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.size.width/2-24, height: 90)
     }
+    
 }
 
 struct MainViewControllerRepresentable: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> MainViewController {
         MainViewController()
     }
-
+    
     func updateUIViewController(_ uiViewController: MainViewController, context: Context) {
     }
 }
 
 extension MainViewController {
     @objc func addCardButtonPressed() {
-            let addCardVC = UIHostingController(rootView: AddCardView())
-            self.present(addCardVC, animated: true, completion: nil)
-        }
+        let addCardVC = UIHostingController(rootView: AddCardView())
+        self.present(addCardVC, animated: true, completion: nil)
+    }
 }
 
