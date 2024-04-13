@@ -124,7 +124,7 @@ extension NetworkManager {
 
 extension NetworkManager {
     func addBankCard(_ requestData: CardAdditionRequest) async throws -> Bool {
-        guard let url = URL(string: "http://172.20.10.2:8080/user-cards") else {
+        guard let url = URL(string: "http://172.20.10.4:8080/user-cards") else {
             return false
         }
         print(requestData.userId)

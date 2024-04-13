@@ -7,7 +7,7 @@ struct BankCardView: View {
     
     var body: some View {
         VStack {
-            Image(systemName: "")
+            Image(bank.name)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 100, height: 100)
@@ -31,19 +31,16 @@ struct CardTypeView: View {
     
     var body: some View {
         VStack {
-            Image(systemName: "")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 100, height: 100)
+            Text(cardType.name)
+                .font(.caption)
+                .lineLimit(1)
+                .frame(width: 100, height: 60)
                 .background(Color.gray.opacity(0.3))
                 .cornerRadius(10)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(isSelected ? ColorScheme.lemonYellow : Color.clear, lineWidth: 3)
                 )
-            Text(cardType.name)
-                .font(.caption)
-                .lineLimit(1)
         }
         .padding(.horizontal)
     }
@@ -82,6 +79,7 @@ struct AddCardView: View {
                 .padding()
                 if !cardTypes.isEmpty {
                     Text("Выберите тип карты:")
+                        .padding()
                     LazyVGrid(columns: columns, spacing: 20) {
                         ForEach(cardTypes, id: \.id) { cardType in
                             CardTypeView(cardType: cardType, isSelected: selectedBankType == cardType.id)
@@ -127,6 +125,7 @@ struct AddCardView: View {
     var specials: some View {
         VStack(alignment: .leading) {
             Text("Добавьте спец-предложения:")
+                .padding()
             ForEach($specialEntries, id: \.id) { $entry in
                 SpecialEntryView(entry: $entry, onDelete: {
                     removeSpecialEntry(entry)
