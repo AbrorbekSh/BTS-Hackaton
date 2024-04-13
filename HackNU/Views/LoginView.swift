@@ -37,6 +37,7 @@ struct LoginView: View {
                 Button(action: {
                     loginUser()
                     fetchBanks()
+                    self.shouldNavigate = true
                 }, label: {
                     Text("Войти")
                         .modifier(ButtonModifier())
