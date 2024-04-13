@@ -16,6 +16,15 @@
 		FE4CDCE22BCA69B9006A7995 /* TextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCE12BCA69B9006A7995 /* TextFieldModifier.swift */; };
 		FE4CDCE42BCA6A03006A7995 /* ButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCE32BCA6A03006A7995 /* ButtonModifier.swift */; };
 		FE4CDCE62BCA6B16006A7995 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCE52BCA6B16006A7995 /* GlobalConstants.swift */; };
+		FE4CDCEB2BCA6F55006A7995 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCEA2BCA6F55006A7995 /* LoginView.swift */; };
+		FE4CDCED2BCA6FAD006A7995 /* CustomSecureField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCEC2BCA6FAD006A7995 /* CustomSecureField.swift */; };
+		FE4CDCEF2BCA71BE006A7995 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCEE2BCA71BE006A7995 /* RegistrationView.swift */; };
+		FE4CDCF12BCA76FF006A7995 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCF02BCA76FF006A7995 /* NetworkManager.swift */; };
+		FE4CDCF42BCA77C5006A7995 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCF32BCA77C5006A7995 /* APIConstants.swift */; };
+		FE4CDCF62BCA77E6006A7995 /* toJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCF52BCA77E6006A7995 /* toJSON.swift */; };
+		FE4CDCF92BCA7811006A7995 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCF82BCA7811006A7995 /* User.swift */; };
+		FE4CDCFB2BCA7A8D006A7995 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCFA2BCA7A8D006A7995 /* MainViewController.swift */; };
+		FE4CDCFD2BCA7AC2006A7995 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCFC2BCA7AC2006A7995 /* CategoriesCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +39,15 @@
 		FE4CDCE12BCA69B9006A7995 /* TextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldModifier.swift; sourceTree = "<group>"; };
 		FE4CDCE32BCA6A03006A7995 /* ButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonModifier.swift; sourceTree = "<group>"; };
 		FE4CDCE52BCA6B16006A7995 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
+		FE4CDCEA2BCA6F55006A7995 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		FE4CDCEC2BCA6FAD006A7995 /* CustomSecureField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSecureField.swift; sourceTree = "<group>"; };
+		FE4CDCEE2BCA71BE006A7995 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		FE4CDCF02BCA76FF006A7995 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		FE4CDCF32BCA77C5006A7995 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
+		FE4CDCF52BCA77E6006A7995 /* toJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = toJSON.swift; sourceTree = "<group>"; };
+		FE4CDCF82BCA7811006A7995 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		FE4CDCFA2BCA7A8D006A7995 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		FE4CDCFC2BCA7AC2006A7995 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +64,8 @@
 		2161E8F22BCA682C00327392 = {
 			isa = PBXGroup;
 			children = (
+				FE4CDCF72BCA7804006A7995 /* Models */,
+				FE4CDCF22BCA77AF006A7995 /* Networking */,
 				FE4CDCE82BCA6E2F006A7995 /* Modifiers */,
 				FE4CDCE92BCA6E42006A7995 /* BrandBook */,
 				FE4CDCE72BCA6E18006A7995 /* Views */,
@@ -78,7 +98,12 @@
 		FE4CDCE72BCA6E18006A7995 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FE4CDCFA2BCA7A8D006A7995 /* MainViewController.swift */,
 				FE4CDCDF2BCA68BE006A7995 /* AddCategoryView.swift */,
+				FE4CDCEA2BCA6F55006A7995 /* LoginView.swift */,
+				FE4CDCEC2BCA6FAD006A7995 /* CustomSecureField.swift */,
+				FE4CDCEE2BCA71BE006A7995 /* RegistrationView.swift */,
+				FE4CDCFC2BCA7AC2006A7995 /* CategoriesCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -98,6 +123,24 @@
 				FE4CDCE52BCA6B16006A7995 /* GlobalConstants.swift */,
 			);
 			path = BrandBook;
+			sourceTree = "<group>";
+		};
+		FE4CDCF22BCA77AF006A7995 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				FE4CDCF02BCA76FF006A7995 /* NetworkManager.swift */,
+				FE4CDCF32BCA77C5006A7995 /* APIConstants.swift */,
+				FE4CDCF52BCA77E6006A7995 /* toJSON.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		FE4CDCF72BCA7804006A7995 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FE4CDCF82BCA7811006A7995 /* User.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,13 +213,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE4CDCF62BCA77E6006A7995 /* toJSON.swift in Sources */,
 				FE4CDCE42BCA6A03006A7995 /* ButtonModifier.swift in Sources */,
+				FE4CDCFD2BCA7AC2006A7995 /* CategoriesCollectionViewCell.swift in Sources */,
 				2161E9032BCA682C00327392 /* ViewController.swift in Sources */,
 				FE4CDCE22BCA69B9006A7995 /* TextFieldModifier.swift in Sources */,
 				2161E8FF2BCA682C00327392 /* AppDelegate.swift in Sources */,
+				FE4CDCF12BCA76FF006A7995 /* NetworkManager.swift in Sources */,
+				FE4CDCF92BCA7811006A7995 /* User.swift in Sources */,
 				FE4CDCE62BCA6B16006A7995 /* GlobalConstants.swift in Sources */,
 				2161E9012BCA682C00327392 /* SceneDelegate.swift in Sources */,
+				FE4CDCFB2BCA7A8D006A7995 /* MainViewController.swift in Sources */,
+				FE4CDCEB2BCA6F55006A7995 /* LoginView.swift in Sources */,
+				FE4CDCED2BCA6FAD006A7995 /* CustomSecureField.swift in Sources */,
 				FE4CDCE02BCA68BE006A7995 /* AddCategoryView.swift in Sources */,
+				FE4CDCEF2BCA71BE006A7995 /* RegistrationView.swift in Sources */,
+				FE4CDCF42BCA77C5006A7995 /* APIConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

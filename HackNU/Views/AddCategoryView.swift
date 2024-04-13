@@ -34,10 +34,6 @@ struct AddCategoryView: View {
                         .modifier(ButtonModifier())
                 }
                 .padding(.vertical)
-                
-
-                
-                
             }
             .navigationBarBackButtonHidden(true)
             .padding(.horizontal)
@@ -45,19 +41,8 @@ struct AddCategoryView: View {
     }
 }
 
-struct LoginView_Previews: PreviewProvider {
+struct AddCategoryView_Previews: PreviewProvider {
     static var previews: some View {
         AddCategoryView()
     }
-}
-
-struct RegLogConstants {
-    static let logoVerticalPadding = 0.07
-    static let verticalSpacing = 0.015
-    static let bottomViewBottomPadding = 0.01
-    static let bottomViewTopPadding = 0.005
-    static let logoSize = 0.2
-    static let buttonHeight: CGFloat = 50
-    static let disabledOpacity: Double = 0.7
-    static let enabledOpacity: Double = 1
 }
