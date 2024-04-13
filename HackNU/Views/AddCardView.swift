@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct AddCategoryView: View {
+struct AddCardView: View {
     @State var email: String = ""
     @State var password: String = ""
     
@@ -38,11 +38,12 @@ struct AddCategoryView: View {
             .navigationBarBackButtonHidden(true)
             .padding(.horizontal)
         }
+        .background(Color.black)
     }
 }
 
-struct AddCategoryView_Previews: PreviewProvider {
+struct AddCardView_Previews: PreviewProvider {
     static var previews: some View {
-        AddCategoryView()
+        AddCardView()
     }
 }

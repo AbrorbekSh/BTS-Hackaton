@@ -12,7 +12,7 @@
 		2161E9032BCA682C00327392 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161E9022BCA682C00327392 /* ViewController.swift */; };
 		2161E9082BCA682D00327392 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2161E9072BCA682D00327392 /* Assets.xcassets */; };
 		2161E90B2BCA682D00327392 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2161E9092BCA682D00327392 /* LaunchScreen.storyboard */; };
-		FE4CDCE02BCA68BE006A7995 /* AddCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCDF2BCA68BE006A7995 /* AddCategoryView.swift */; };
+		FE4CDCE02BCA68BE006A7995 /* AddCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCDF2BCA68BE006A7995 /* AddCardView.swift */; };
 		FE4CDCE22BCA69B9006A7995 /* TextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCE12BCA69B9006A7995 /* TextFieldModifier.swift */; };
 		FE4CDCE42BCA6A03006A7995 /* ButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCE32BCA6A03006A7995 /* ButtonModifier.swift */; };
 		FE4CDCE62BCA6B16006A7995 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCE52BCA6B16006A7995 /* GlobalConstants.swift */; };
@@ -35,7 +35,7 @@
 		2161E9072BCA682D00327392 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2161E90A2BCA682D00327392 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2161E90C2BCA682D00327392 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FE4CDCDF2BCA68BE006A7995 /* AddCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryView.swift; sourceTree = "<group>"; };
+		FE4CDCDF2BCA68BE006A7995 /* AddCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardView.swift; sourceTree = "<group>"; };
 		FE4CDCE12BCA69B9006A7995 /* TextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldModifier.swift; sourceTree = "<group>"; };
 		FE4CDCE32BCA6A03006A7995 /* ButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonModifier.swift; sourceTree = "<group>"; };
 		FE4CDCE52BCA6B16006A7995 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
@@ -99,7 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				FE4CDCFA2BCA7A8D006A7995 /* MainViewController.swift */,
-				FE4CDCDF2BCA68BE006A7995 /* AddCategoryView.swift */,
+				FE4CDCDF2BCA68BE006A7995 /* AddCardView.swift */,
 				FE4CDCEA2BCA6F55006A7995 /* LoginView.swift */,
 				FE4CDCEC2BCA6FAD006A7995 /* CustomSecureField.swift */,
 				FE4CDCEE2BCA71BE006A7995 /* RegistrationView.swift */,
@@ -226,7 +226,7 @@
 				FE4CDCFB2BCA7A8D006A7995 /* MainViewController.swift in Sources */,
 				FE4CDCEB2BCA6F55006A7995 /* LoginView.swift in Sources */,
 				FE4CDCED2BCA6FAD006A7995 /* CustomSecureField.swift in Sources */,
-				FE4CDCE02BCA68BE006A7995 /* AddCategoryView.swift in Sources */,
+				FE4CDCE02BCA68BE006A7995 /* AddCardView.swift in Sources */,
 				FE4CDCEF2BCA71BE006A7995 /* RegistrationView.swift in Sources */,
 				FE4CDCF42BCA77C5006A7995 /* APIConstants.swift in Sources */,
 			);

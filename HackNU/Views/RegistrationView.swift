@@ -52,14 +52,17 @@ struct RegistrationView: View {
                     Text(passwordMismatch ? "Пароли разные" : "")
                         .font(Font.custom("", size: GlobalConstants.fontSize))
                         .foregroundColor(.red)
-                    Button {
-                        
-                    } label: {
-                        Text("Зарегистрироваться")
-                            .modifier(ButtonModifier())
-                            .opacity(passwordMismatch ? RegLogConstants.disabledOpacity : RegLogConstants.enabledOpacity)
-                    }
+                    NavigationLink(destination: {
+                        MainViewControllerRepresentable()
+                            .background(Color.black)
+                    }, label: {
+                                    Text("Войти")
+                        .modifier(ButtonModifier())
+                        .opacity(passwordMismatch ? RegLogConstants.disabledOpacity : RegLogConstants.enabledOpacity)
+                                  }
+                        )
                     .disabled(passwordMismatch)
+                    
                     
                     Spacer()
                     Divider()
@@ -70,6 +73,7 @@ struct RegistrationView: View {
                         
                         NavigationLink("Залогинься!", isActive: $isShowingLogin) {
                             LoginView(isShowing: $isShowingLogin)
+                                
                         }
                         .font(Font.custom("", size: GlobalConstants.fontSize))
                         

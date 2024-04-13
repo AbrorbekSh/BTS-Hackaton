@@ -82,7 +82,7 @@ final class CategoriesCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        label.textColor = .black
+        label.textColor = .white
         
         label.backgroundColor = .clear
         label.layer.masksToBounds = true

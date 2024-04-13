@@ -31,11 +31,14 @@ struct LoginView: View {
                 CustomSecureField(placeholder: "Пароль", rightView: "eye.slash", text: $password)
                     .modifier(TextFieldModifier())
                 
-                Button {
-                } label: {
-                    Text("Войти")
-                        .modifier(ButtonModifier())
-                }
+                NavigationLink(destination: {
+                    MainViewControllerRepresentable()
+                        .background(Color.black)
+                }, label: {
+                                Text("Войти")
+                    .modifier(ButtonModifier())
+                              }
+                    )
                 
 //                Button {
 //                } label: {
