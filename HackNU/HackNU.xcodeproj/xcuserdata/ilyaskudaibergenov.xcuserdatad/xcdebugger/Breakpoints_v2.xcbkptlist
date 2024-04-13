@@ -30,8 +30,8 @@
             filePath = "Views/RegistrationView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
             landmarkName = "registerUser()"
             landmarkType = "7">
          </BreakpointContent>

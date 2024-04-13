@@ -83,3 +83,43 @@ extension NetworkManager {
             }
         }
 }
+
+extension NetworkManager {
+    func getBanks() async -> Result<[Bank], Error> {
+        guard let url = URL(string: APIConstants.baseURL + APIConstants.Handles.banks.rawValue) else {  
+            return .failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"]))
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(for: request)
+            let decoder = JSONDecoder()
+            let response = try decoder.decode(BanksResponse.self, from: data)
+            return .success(response.content)
+        } catch {
+            return .failure(error)
+        }
+    }
+}
+
+extension NetworkManager {
+    func getBankCard(by bankId: Int) async -> Result<[BankCard], Error> {
+        let url = URL(string: "\(APIConstants.baseURL)/bank-cards?page=0&size=20")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        do {
+            let (data, _) = try await URLSession.shared.data(for: request)
+            let bankCards = try JSONDecoder().decode(BankCardResponse.self, from: data)
+            return .success(bankCards.content)
+        } catch {
+            return .failure(error)
+        }
+    }
+}
+
+

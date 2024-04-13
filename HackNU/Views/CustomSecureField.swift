@@ -21,7 +21,7 @@ struct CustomSecureField: View {
             Button {
                 isPasswordVisible.toggle()
             } label: {
-                Image(rightView)
+                Image(systemName: rightView)
                     .resizable()
                     .frame(width: Constants.rightImageWidth, height: Constants.rightImageHeight)
                     .foregroundColor(

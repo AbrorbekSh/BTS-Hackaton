@@ -36,6 +36,7 @@ struct LoginView: View {
                 
                 Button(action: {
                     loginUser()
+                    fetchBanks()
                 }, label: {
                     Text("Войти")
                         .modifier(ButtonModifier())
@@ -109,4 +110,21 @@ struct RegLogConstants {
     static let buttonHeight: CGFloat = 50
     static let disabledOpacity: Double = 0.7
     static let enabledOpacity: Double = 1
+}
+
+extension LoginView {
+    public func fetchBanks() {
+        Task {
+            let result = await NetworkManager.shared.getBanks()
+            switch result {
+            case .success(let banks):
+                DispatchQueue.main.async {
+                    self.viewModel.banks = banks
+                    print(banks[0].name)
+                }
+            case .failure(let error):
+                print("Error fetching banks: \(error)")
+            }
+        }
+    }
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 final class CategoryViewController: UIViewController, UITextFieldDelegate {
-    private let categories: [String] = ["Category 1", "Category 2", "Category 3", "Category 4", "Category 1", "Category 2", "Category 3", "Category 4"]
+    private let categories: [Category] = []
     
     
     private let placesCollectionView: UICollectionView = {
@@ -115,7 +115,7 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCollectionViewCell.identifier, for: indexPath) as? CategoriesCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.categoryName.text = categories[indexPath.row]
+        cell.categoryName.text = categories[indexPath.row].name
 
         return cell
     }

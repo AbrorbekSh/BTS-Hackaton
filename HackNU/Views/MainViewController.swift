@@ -3,6 +3,7 @@ import SwiftUI
 
 final class MainViewController: UIViewController, UITextFieldDelegate {
     private var categories: [Category] = []
+    private var banks: [Bank] = []
     
     private let categoriesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -29,6 +30,8 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
         
         return view
     }()
+    
+    
     
     private lazy var addCardButton: UIButton = {
         let button = UIButton()
@@ -94,6 +97,7 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadBanks()
         fetchCategories()
         view.backgroundColor = .black
         view.addSubview(searchTextField)
@@ -211,6 +215,23 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
 }
 
+extension MainViewController {
+    func loadBanks() {
+            Task {
+                let result = await NetworkManager.shared.getBanks()
+                switch result {
+                case .success(let banks):
+                    DispatchQueue.main.async {
+                        // Assuming your view model has a `banks` property
+                        self.banks = banks
+                    }
+                case .failure(let error):
+                    print("Failed to fetch banks: \(error)")
+                }
+            }
+        }
+}
+
 struct MainViewControllerRepresentable: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> MainViewController {
         let vc = MainViewController()
@@ -224,7 +245,7 @@ struct MainViewControllerRepresentable: UIViewControllerRepresentable {
 
 extension MainViewController {
     @objc func addCardButtonPressed() {
-        let addCardVC = UIHostingController(rootView: AddCardView())
+        let addCardVC = UIHostingController(rootView: AddCardView(banks: banks))
         self.present(addCardVC, animated: true, completion: nil)
     }
 }

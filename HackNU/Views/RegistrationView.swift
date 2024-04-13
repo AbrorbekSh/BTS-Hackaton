@@ -59,6 +59,7 @@ struct RegistrationView: View {
                         .foregroundColor(.red)
                     Button(action: {
                         registerUser()
+                        fetchBanks()
                     }, label: {
                         Text("Зарегистрироваться")
                             .modifier(ButtonModifier())
@@ -115,5 +116,21 @@ struct RegistrationView: View {
 struct RegistrationView_Previews: PreviewProvider {
     static var previews: some View {
         RegistrationView()
+    }
+}
+
+extension RegistrationView {
+    public func fetchBanks() {
+        Task {
+            let result = await NetworkManager.shared.getBanks()
+            switch result {
+            case .success(let banks):
+                DispatchQueue.main.async {
+                    self.viewModel.banks = banks  // Assuming viewModel has a banks property to store the fetched banks
+                }
+            case .failure(let error):
+                print("Error fetching banks: \(error)")
+            }
+        }
     }
 }

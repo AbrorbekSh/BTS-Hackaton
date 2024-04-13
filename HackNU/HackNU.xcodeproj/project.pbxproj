@@ -28,6 +28,7 @@
 		FE4CDCFD2BCA7AC2006A7995 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDCFC2BCA7AC2006A7995 /* CategoriesCollectionViewCell.swift */; };
 		FE4CDD012BCA941F006A7995 /* BigViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDD002BCA941E006A7995 /* BigViewModel.swift */; };
 		FE4CDD032BCAA216006A7995 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDD022BCAA216006A7995 /* Category.swift */; };
+		FE4CDD052BCABF56006A7995 /* Bank.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4CDD042BCABF56006A7995 /* Bank.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		FE4CDCFC2BCA7AC2006A7995 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		FE4CDD002BCA941E006A7995 /* BigViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigViewModel.swift; sourceTree = "<group>"; };
 		FE4CDD022BCAA216006A7995 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		FE4CDD042BCABF56006A7995 /* Bank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bank.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 			children = (
 				FE4CDCF82BCA7811006A7995 /* User.swift */,
 				FE4CDD022BCAA216006A7995 /* Category.swift */,
+				FE4CDD042BCABF56006A7995 /* Bank.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -226,8 +229,8 @@
 				FE4CDCE42BCA6A03006A7995 /* ButtonModifier.swift in Sources */,
 				FE4CDCFD2BCA7AC2006A7995 /* CategoriesCollectionViewCell.swift in Sources */,
 				FE4CDD012BCA941F006A7995 /* BigViewModel.swift in Sources */,
-				2161E9032BCA682C00327392 /* ViewController.swift in Sources */,
 				FE4CDD032BCAA216006A7995 /* Category.swift in Sources */,
+				FE4CDD052BCABF56006A7995 /* Bank.swift in Sources */,
 				FE4CDCE22BCA69B9006A7995 /* TextFieldModifier.swift in Sources */,
 				2161E9252BCA7D0400327392 /* CategoryViewController.swift in Sources */,
 				2161E9272BCA88B200327392 /* ProfileViewController.swift in Sources */,
