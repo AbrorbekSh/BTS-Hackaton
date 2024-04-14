@@ -119,12 +119,69 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
         categoriesCollectionView.dataSource = self
         view.addSubview(categoriesCollectionView)
         view.addSubview(addCardButton)
+        view.addSubview(passTextField)
+        view.addSubview(passButton)
+        passButton.addTarget(self, action: #selector(handlePassButton), for: .touchUpInside)
         
         searchTextField.addTarget(self, action: #selector(filterData), for: .editingChanged)
         searchTextField.addTarget(self, action: #selector(openReccomendations), for: .editingDidBegin)
         
         setUpConstraints()
+        
     }
+    @objc private func handlePassButton() {
+        Task {
+            // Wait for three seconds
+
+            // Simultaneously, fetch the best offer
+            do {
+                let bankCard = try await NetworkManager.shared.fetchBestOffer(userId: 3, categoryId: 3)
+                
+                // Stop the activity indicator
+                DispatchQueue.main.async { [weak self] in
+//                        self?.activityIndicator.stopAnimating()
+                    
+                    // Proceed to show the next view controller
+                    self!.viewModel.bestCard = bankCard.0
+                    self!.viewModel.bonus = bankCard.1
+                    let vc = BankCardViewController(viewModel: self!.viewModel)
+//                        vc.bankCard = bankCard  // Assuming you have a way to pass the bank card to the VC
+                    let navController = UINavigationController(rootViewController: vc)
+                    self?.present(navController, animated: true, completion: nil)
+                }
+            } catch {
+                DispatchQueue.main.async { [weak self] in
+                    // Handle error, show alert or message
+                    print("Error fetching offer: \(error)")
+                }
+            }
+        }
+    }
+    
+    private let passTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.backgroundColor = .white
+        textField.layer.cornerRadius = 8
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.gray.cgColor
+        textField.placeholder = "Enter passcode"
+        textField.font = UIFont.systemFont(ofSize: 16)
+        textField.textAlignment = .left
+        textField.textColor = .black
+        return textField
+    }()
+    
+    private let passButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Отправить ссылку", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = UIColor(ColorScheme.lemonYellow)
+        button.setTitleColor(.black, for: .normal)
+        button.layer.cornerRadius = 15
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        return button
+    }()
     
     @objc private func showProfile() {
         let profileVC = ProfileViewController(viewModel: viewModel)
@@ -213,6 +270,20 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
             button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             button.heightAnchor.constraint(equalToConstant: 50),
         ])
+        
+        NSLayoutConstraint.activate([
+                // Constraints for the passTextField
+                passTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                passTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+                passTextField.heightAnchor.constraint(equalToConstant: 50),
+                passTextField.bottomAnchor.constraint(equalTo: passButton.topAnchor, constant: -20),
+
+                // Constraints for the passButton
+                passButton.bottomAnchor.constraint(equalTo: addCardButton.topAnchor, constant: -20),
+                passButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                passButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+                passButton.heightAnchor.constraint(equalToConstant: 50)
+            ])
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -258,7 +329,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
                 // Simultaneously, fetch the best offer
                 do {
-                    let bankCard = try await NetworkManager.shared.fetchBestOffer(userId: 3, categoryId: categories[indexPath.row].id)
+                    let bankCard = try await NetworkManager.shared.fetchBestOffer(userId: 1, categoryId: categories[indexPath.row].id)
                     
                     // Stop the activity indicator
                     DispatchQueue.main.async { [weak self] in
@@ -268,9 +339,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                         self!.viewModel.bestCard = bankCard.0
                         self!.viewModel.bonus = bankCard.1
                         let vc = BankCardViewController(viewModel: self!.viewModel)
-                        print("working card")
-                        print(bankCard)
-                        print("working card")
 //                        vc.bankCard = bankCard  // Assuming you have a way to pass the bank card to the VC
                         let navController = UINavigationController(rootViewController: vc)
                         self?.present(navController, animated: true, completion: nil)

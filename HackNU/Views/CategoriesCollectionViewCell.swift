@@ -58,14 +58,14 @@ final class CategoriesCollectionViewCell: UICollectionViewCell {
     }
     
     private func loadImage(from url: String) {
-        guard let imageURL = URL(string: url) else { return }
-        let task = URLSession.shared.dataTask(with: imageURL) { data, _, _ in
-            guard let data = data, let image = UIImage(data: data) else { return }
-            DispatchQueue.main.async {
-                self.imageView.image = image
-            }
-        }
-        task.resume()
+//        guard let imageURL = URL(string: url) else { return }
+//        let task = URLSession.shared.dataTask(with: imageURL) { data, _, _ in
+//            guard let data = data, let image = UIImage(data: data) else { return }
+//            DispatchQueue.main.async {
+//                self.imageView.image = image
+//            }
+//        }
+//        task.resume()
     }
     
     

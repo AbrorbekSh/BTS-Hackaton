@@ -70,7 +70,7 @@ final class CardView: UIView {
         // Append the random digits to the card number
         cardNumber += lastFourDigits
         
-        return cardNumber
+        return "**** **** **** ****"
     }
 
     // Labels for displaying the card information
@@ -164,10 +164,28 @@ final class CardView: UIView {
         ])
     }
     
-    func changeGradinet() {
-        gradientLayer?.colors = [
-                                UIColor(hex: "#006C34").cgColor, UIColor(hex: "#DACE23").cgColor,]
+    func changeGradient() {
+        // Define the colors
+        let gold = UIColor(red: 212/255, green: 175/255, blue: 55/255, alpha: 1) // RGB for gold
+        let silver = UIColor(red: 192/255, green: 192/255, blue: 192/255, alpha: 1) // RGB for silver
+        let black = UIColor.systemBlue // Shortcut for black
+        let blue = UIColor.black
+
+        // Array of colors
+        let colors = [gold.cgColor, silver.cgColor, black.cgColor]
+
+        // Randomly select two different colors from the array
+        var selectedColors = Set<CGColor>()
+        while selectedColors.count < 2 {
+            if let randomColor = colors.randomElement() {
+                selectedColors.insert(randomColor)
+            }
+        }
+
+        // Assign random colors to gradient
+        gradientLayer?.colors = Array(selectedColors)
     }
+
     
     private func setupGradient() {
         let gradientLayer = CAGradientLayer()

@@ -124,6 +124,7 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
         }
         cell.card = cards[indexPath.row]
         cell.configureForprofile()
+        cell.changeGradient()
         
         return cell
     }

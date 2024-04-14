@@ -79,8 +79,9 @@ final class BankCardViewController: UIViewController, UITableViewDataSource, UIT
         // Append the random digits to the card number
         cardNumber += lastFourDigits
         
-        return cardNumber
+        return "**** **** **** ****"
     }
+
 
     // Method to set up the view
     private func setupView() {

@@ -47,12 +47,13 @@ final class BankCardTableViewCell: UITableViewCell {
         // Append the random digits to the card number
         cardNumber += lastFourDigits
         
-        return cardNumber
+        return "**** **** **** ****"
     }
+
 
     
     func changeGradient() {
-        bankCardView.changeGradinet()
+        bankCardView.changeGradient()
     }
     // The bank card view to be displayed in the cell
     var bankCardView: CardView!
