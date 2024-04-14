@@ -18,6 +18,14 @@ final class CardView: UIView {
         case main
     }
 
+    init(card: BankCard, type: ViewType = .cell) {
+            self.bankName = card.bank.name
+            self.cardType = card.name
+            self.type = type
+            super.init(frame: .zero) // Ensure super.init is called here
+            setupView()
+            setupGradient()
+        }
     var bankName: String = "Bank Name" {
         didSet {
             bankNameLabel.text = bankName
@@ -30,7 +38,7 @@ final class CardView: UIView {
     }
     var bonus: String = "Bonus: 100 points" {
         didSet {
-            bonusLabel.text = "Кэшбэк: 10%"
+            bonusLabel.text = bonus
         }
     }
     var cardType: String = "Visa" {
@@ -40,10 +48,29 @@ final class CardView: UIView {
     }
     
     func configureForProfile() {
-        bankNameLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        cardNumberLabel.font = UIFont.systemFont(ofSize: 12)
-        bonusLabel.font = UIFont.boldSystemFont(ofSize: 14)
-        cardTypeLabel.font = UIFont.systemFont(ofSize: 12)
+        bankNameLabel.text = bankName
+        bankNameLabel.font = UIFont.boldSystemFont(ofSize: 32)
+        
+        cardNumberLabel.font = UIFont.systemFont(ofSize: 16)
+        bonusLabel.font = UIFont.boldSystemFont(ofSize: 0)
+        cardTypeLabel.font = UIFont.systemFont(ofSize: 16)
+        cardTypeLabel.text = cardType
+    }
+    
+    func generateRandomCardNumber() -> String {
+        // Start with "4400"
+        var cardNumber = "4400"
+        
+        // Add the masked section
+        cardNumber += " **** **** "
+        
+        // Generate four random digits for the end
+        let lastFourDigits = (0..<4).map { _ in Int.random(in: 0...9) }.map(String.init).joined()
+        
+        // Append the random digits to the card number
+        cardNumber += lastFourDigits
+        
+        return cardNumber
     }
 
     // Labels for displaying the card information

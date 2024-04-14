@@ -20,15 +20,16 @@ struct LoginView: View {
                     //                            .foregroundStyle(.gray)
                     //                    }
                 }
-                Image(systemName:"lasso")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(
-                        width: geometry.size.width * RegLogConstants.logoSize,
-                        height: geometry.size.height * RegLogConstants.logoSize
-                    )
-                    .padding(.vertical, geometry.size.height * RegLogConstants.logoVerticalPadding)
-                    .foregroundColor(ColorScheme.lemonYellow)
+//                Image("newlogo")
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fit)
+//                    .frame(
+//                        width: 150,
+//                        height: 150
+//                    )
+//                    .padding(.vertical, geometry.size.height * RegLogConstants.logoVerticalPadding)
+//                    .foregroundColor(ColorScheme.lemonYellow)
+                Spacer()
                 TextField("Email",text: $email)
                     .modifier(TextFieldModifier())
                 CustomSecureField(placeholder: "Пароль", rightView: "eye.slash", text: $password)
@@ -63,7 +64,7 @@ struct LoginView: View {
                     Button {
                         isShowing = false
                     } label: {
-                        Text("Зарегистрируйся")
+                        Text("Зарегистрируйся!")
                             .font(Font.custom("", size: GlobalConstants.fontSize))
                             .foregroundColor(Color(uiColor: .systemGray3))
                     }

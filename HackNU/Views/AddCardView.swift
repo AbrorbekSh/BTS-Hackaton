@@ -4,7 +4,6 @@ struct BankCardView: View {
     let bank: Bank
     var isSelected: Bool
     
-    
     var body: some View {
         VStack {
             Image(bank.name)
@@ -64,7 +63,7 @@ struct AddCardView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 15) {
                 Text("Выберите банк:")
-                    .padding()
+                    .padding(.horizontal)
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(banks, id: \.id) { bank in
                         BankCardView(bank: bank, isSelected: selectedBankId == bank.id)
@@ -106,7 +105,7 @@ struct AddCardView: View {
                     Task {
                         await addOffersAndCard()
                         presentationMode.wrappedValue.dismiss()
-                        
+                        fetchCards()
                     }
                 } label: {
                     Text("Добавить карту")
@@ -128,9 +127,9 @@ struct AddCardView: View {
                 .padding()
             ForEach($specialEntries, id: \.id) { $entry in
                 SpecialEntryView(entry: $entry, onDelete: {
-                    removeSpecialEntry(entry)
-                })
-                .padding(.bottom)
+                                removeSpecialEntry(entry)
+                            }, categories: viewModel.categories)
+                            .padding(.bottom)
             }
             Image(systemName: "plus")
                 .resizable()
@@ -142,15 +141,31 @@ struct AddCardView: View {
                 }
         }
     }
+    
+    private func fetchCards() {
+        Task {
+            do {
+                let fetchedCards = try await NetworkManager.shared.getCards(userId: self.viewModel.curUser.id)
+                print("lool")
+                print(fetchedCards)
+                print("lool")
+                DispatchQueue.main.async {
+                    self.viewModel.cards = fetchedCards
+                }
+            } catch let error {
+                print("Failed to fetch bank cards: \(error)")
+            }
+        }
+    }
     func addOffersAndCard() async {
         let groupId = UUID()  // Assuming each set of offers could be grouped by this ID if necessary.
         for entry in specialEntries {
-            let categoryID = categoryId(forName: entry.first) ?? 0
+//            let categoryID = categoryId(forName: entry.categoryId) ?? 0
             let newOffer = NewOfferRequest(
                 userId: viewModel.curUser.id,  // Assuming you have access to the user ID here.
                 bankCardId: selectedBankType ?? 0,
-                categoryId: categoryID,  // Assuming `first` holds the category ID.
-                percentage: Double(entry.second) ?? 0,  // Assuming `second` holds the percentage.
+                categoryId: entry.categoryId,  // Assuming `first` holds the category ID.
+                percentage: Double(entry.percentage) ?? 0,  // Assuming `second` holds the percentage.
                 conditions: "Только через QR",  // Modify if conditions vary per entry.
                 dateFrom: "2025-03-10",  // Modify as needed.
                 dateTo: "2025-03-10"  // Modify as needed.
@@ -158,12 +173,12 @@ struct AddCardView: View {
             do {
                 let success = try await NetworkManager.shared.addNewOffer(offerData: newOffer)
                 if success {
-                    print("Offer successfully added for category \(entry.first)")
+                    print("Offer successfully added for category \(entry.categoryId)")
                 } else {
-                    print("Failed to add offer for category \(entry.first)")
+                    print("Failed to add offer for category \(entry.categoryId)")
                 }
             } catch {
-                print("Error occurred when adding offer for category \(entry.first): \(error)")
+                print("Error occurred when adding offer for category \(entry.categoryId): \(error)")
             }
         }
         
@@ -195,7 +210,7 @@ struct AddCardView: View {
     }
 
     func addNewSpecialEntry() {
-        specialEntries.append(SpecialEntry(first: "", second: ""))
+        specialEntries.append(SpecialEntry(categoryId: 0, percentage: ""))
     }
     
     func removeSpecialEntry(_ entry: SpecialEntry) {
@@ -217,15 +232,23 @@ struct AddCardView: View {
     struct SpecialEntryView: View {
         @Binding var entry: SpecialEntry
         var onDelete: () -> Void
+        var categories: [Category]
+        var pickerColor = ColorScheme.lemonYellow
         
         var body: some View {
             HStack {
-                TextField("Категория", text: $entry.first)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding(.trailing, 5)
-                TextField("Скидка %", text: $entry.second)
+                Picker("Select Category", selection: $entry.categoryId) {
+                    ForEach(categories, id: \.id) { category in
+                        Text(category.name).tag(category.id)
+                    }
+                }
+                .accentColor(pickerColor)
+                .pickerStyle(MenuPickerStyle())
+
+                TextField("Скидка %", text: $entry.percentage)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.leading, 5)
+
                 Button(action: onDelete) {
                     Image(systemName: "minus.circle")
                         .foregroundColor(.red)
@@ -237,8 +260,8 @@ struct AddCardView: View {
 
 struct SpecialEntry: Identifiable, Hashable {
     var id = UUID()
-    var first: String
-    var second: String
+        var categoryId: Int
+        var percentage: String
 }
 
 

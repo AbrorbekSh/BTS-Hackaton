@@ -8,32 +8,54 @@
 import UIKit
 
 final class BankCardTableViewCell: UITableViewCell {
-    
     var card: BankCard? { 
         didSet {
             guard let card else { return }
             let cardView = CardView(
                 bankName: card.name,
-                cardNumber: card.name,
-                bonus: card.name,
+                cardNumber: generateRandomCardNumber(),
+                bonus: "10%",
                 cardType: "Visa",
                 type: .cell
             )
             bankCardView = cardView
+            bankCardView.removeFromSuperview()
+            contentView.addSubview(bankCardView)
+            
+            // Set up Auto Layout constraints for the bank card view
+            bankCardView.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                bankCardView.topAnchor.constraint(equalTo: backView.topAnchor),
+                bankCardView.bottomAnchor.constraint(equalTo: backView.bottomAnchor, constant: -20),
+                bankCardView.leadingAnchor.constraint(equalTo: backView.leadingAnchor),
+                bankCardView.trailingAnchor.constraint(equalTo: backView.trailingAnchor)
+            ])
      }
     }
+
+    func generateRandomCardNumber() -> String {
+        // Start with "4400"
+        var cardNumber = "4400"
+        
+        // Add the masked section
+        cardNumber += " **** **** "
+        
+        // Generate four random digits for the end
+        let lastFourDigits = (0..<4).map { _ in Int.random(in: 0...9) }.map(String.init).joined()
+        
+        // Append the random digits to the card number
+        cardNumber += lastFourDigits
+        
+        return cardNumber
+    }
+
     
     func changeGradient() {
         bankCardView.changeGradinet()
     }
     // The bank card view to be displayed in the cell
-    var bankCardView = CardView(
-        bankName: "Jusan",
-        cardNumber: "4004 **** **** 2123",
-        bonus: "5%",
-        cardType: "Visa",
-        type: .cell
-    )
+    var bankCardView: CardView!
     
     func configureForprofile() {
         bankCardView.configureForProfile()
@@ -54,10 +76,6 @@ final class BankCardTableViewCell: UITableViewCell {
         
         // Add the bank card view to the content view of the cell
         contentView.addSubview(backView)
-        contentView.addSubview(bankCardView)
-        
-        // Set up Auto Layout constraints for the bank card view
-        bankCardView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             backView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -65,30 +83,11 @@ final class BankCardTableViewCell: UITableViewCell {
             backView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             backView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
-        
-        NSLayoutConstraint.activate([
-            bankCardView.topAnchor.constraint(equalTo: backView.topAnchor),
-            bankCardView.bottomAnchor.constraint(equalTo: backView.bottomAnchor, constant: -20),
-            bankCardView.leadingAnchor.constraint(equalTo: backView.leadingAnchor),
-            bankCardView.trailingAnchor.constraint(equalTo: backView.trailingAnchor)
-        ])
     }
 
     // Required initializer
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
-        // Add the bank card view to the content view of the cell
-        contentView.addSubview(bankCardView)
-        
-        // Set up Auto Layout constraints for the bank card view
-        bankCardView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            bankCardView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            bankCardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            bankCardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            bankCardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
-        ])
     }
 }
 

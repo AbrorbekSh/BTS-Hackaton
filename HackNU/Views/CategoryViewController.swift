@@ -37,7 +37,7 @@ final class CategoryViewController: UIViewController, UITextFieldDelegate {
         textField.layer.borderWidth = 2
         textField.layer.borderColor = UIColor.black.cgColor
         textField.attributedPlaceholder = NSAttributedString(
-            string: "Search",
+            string: "Поиск",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.black]
         )
         textField.font = UIFont(name: "Montserrat-SemiBold", size: 16)

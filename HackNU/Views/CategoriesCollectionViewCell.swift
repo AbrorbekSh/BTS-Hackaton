@@ -54,7 +54,7 @@ final class CategoriesCollectionViewCell: UICollectionViewCell {
     
     func configure(with category: Category) {
         categoryName.text = category.name
-        loadImage(from: category.image)
+        loadImage(from: category.image ?? "")
     }
     
     private func loadImage(from url: String) {

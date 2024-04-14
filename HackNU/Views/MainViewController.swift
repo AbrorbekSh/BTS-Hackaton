@@ -65,7 +65,7 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
         textField.layer.borderWidth = 2
         textField.layer.borderColor = UIColor.black.cgColor
         textField.attributedPlaceholder = NSAttributedString(
-            string: "Search",
+            string: "Поиск",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.black]
         )
         textField.font = UIFont(name: "Montserrat-SemiBold", size: 16)
@@ -106,11 +106,11 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchCards()
         self.navigationItem.hidesBackButton = true
         hideKeyboardWhenTappedAround()
         loadBanks()
         fetchCategories()
-        fetchCards()
         view.backgroundColor = .black
         view.addSubview(searchTextField)
         view.addSubview(button)
@@ -140,6 +140,21 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    private var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.color = .white
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+
+    private func setupActivityIndicator() {
+        view.addSubview(activityIndicator)
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
     private func fetchCategories() {
         Task {
             let result = await NetworkManager.shared.getCategories()
@@ -160,10 +175,11 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
         Task {
             do {
                 let fetchedCards = try await NetworkManager.shared.getCards(userId: self.viewModel.curUser.id)
+                print("lool")
+                print(fetchedCards)
+                print("lool")
                 DispatchQueue.main.async {
-                    self.viewModel.bankCards = fetchedCards // Assuming there's a bankCards array in your viewModel
-                    self.cards = fetchedCards // If you store the cards locally in the controller
-                    self.tableView.reloadData()
+                    self.viewModel.cards = fetchedCards
                 }
             } catch let error {
                 print("Failed to fetch bank cards: \(error)")
@@ -234,14 +250,44 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = BankCardViewController(viewModel: viewModel)
-        let navController = UINavigationController(rootViewController: vc)
-        present(navController, animated: true, completion: nil)
+        /*activityIndicator.startAnimating() */ // Start loading animation
+
+            // Perform the loading and API call asynchronously
+            Task {
+                // Wait for three seconds
+
+                // Simultaneously, fetch the best offer
+                do {
+                    let bankCard = try await NetworkManager.shared.fetchBestOffer(userId: 3, categoryId: categories[indexPath.row].id)
+                    
+                    // Stop the activity indicator
+                    DispatchQueue.main.async { [weak self] in
+//                        self?.activityIndicator.stopAnimating()
+                        
+                        // Proceed to show the next view controller
+                        self!.viewModel.bestCard = bankCard.0
+                        self!.viewModel.bonus = bankCard.1
+                        let vc = BankCardViewController(viewModel: self!.viewModel)
+                        print("working card")
+                        print(bankCard)
+                        print("working card")
+//                        vc.bankCard = bankCard  // Assuming you have a way to pass the bank card to the VC
+                        let navController = UINavigationController(rootViewController: vc)
+                        self?.present(navController, animated: true, completion: nil)
+                    }
+                } catch {
+                    DispatchQueue.main.async { [weak self] in
+                        // Handle error, show alert or message
+                        print("Error fetching offer: \(error)")
+                    }
+                }
+            }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.size.width/2-30, height: 90)
     }
+    
     
 }
 

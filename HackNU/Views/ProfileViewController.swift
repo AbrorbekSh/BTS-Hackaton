@@ -9,19 +9,14 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
-    private var cards:[BankCard] = [
-        BankCard(id: 12, bank: Bank(id: 12, name: "Jusan", image: nil), name: "Jusan", image: nil, comment: nil),
-        BankCard(id: 12, bank: Bank(id: 12, name: "Jusan", image: nil), name: "Jusan", image: nil, comment: nil),
-        BankCard(id: 12, bank: Bank(id: 12, name: "Jusan", image: nil), name: "Jusan", image: nil, comment: nil),
-        BankCard(id: 12, bank: Bank(id: 12, name: "Jusan", image: nil), name: "Jusan", image: nil, comment: nil),
-        BankCard(id: 12, bank: Bank(id: 12, name: "Jusan", image: nil), name: "Jusan", image: nil, comment: nil),
-    ] {
+    private var cards: [BankCard] = [] {
         didSet {
             tableView.reloadData()
         }
     }
     
     init(viewModel: BigViewModel) {
+        self.cards = viewModel.cards.map { BankCard(id: $0.bankCard.id, bank: $0.bankCard.bank, name: $0.bankCard.name, image: nil, comment: nil) }
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -74,7 +69,7 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+ 
         // Set up the view
         view.backgroundColor = .black
         navigationController?.isNavigationBarHidden = false
@@ -85,11 +80,13 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
         
         // Set up constraints
         setupConstraints()
-        nameLabel.text = "Здравствуйте, \(viewModel.curUser.name)"
+        nameLabel.text = "Привет, \(viewModel.curUser.name)"
+        
         
         // Set the table view delegate and data source
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.showsVerticalScrollIndicator = false
     }
     
     private func setupConstraints() {
@@ -155,21 +152,5 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
     // Logout button action
     @objc private func logoutButtonTapped() {
         print("Logout button tapped")
-    }
-}
-
-extension ProfileViewController {
-    func loadCards() {
-        Task {
-            let result = await NetworkManager.shared.getBanks()
-            switch result {
-            case .success(let _):
-                DispatchQueue.main.async {
-                    self.cards = []
-                }
-            case .failure(let error):
-                print("Failed to fetch banks: \(error)")
-            }
-        }
     }
 }

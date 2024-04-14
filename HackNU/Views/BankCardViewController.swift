@@ -22,19 +22,16 @@ final class BankCardViewController: UIViewController, UITableViewDataSource, UIT
     )
     
     private var cards:[BankCard] = [
-        BankCard(id: 12, bank: Bank(id: 12, name: "Jusan", image: nil), name: "Jusan", image: nil, comment: nil),
-        BankCard(id: 12, bank: Bank(id: 12, name: "Jusan", image: nil), name: "Jusan", image: nil, comment: nil),
-        BankCard(id: 12, bank: Bank(id: 12, name: "Jusan", image: nil), name: "Jusan", image: nil, comment: nil),
-        BankCard(id: 12, bank: Bank(id: 12, name: "Jusan", image: nil), name: "Jusan", image: nil, comment: nil),
-        BankCard(id: 12, bank: Bank(id: 12, name: "Jusan", image: nil), name: "Jusan", image: nil, comment: nil),
+        
     ] {
         didSet {
             tableView.reloadData()
         }
     }
     
-    init(viewModel: BigViewModel = BigViewModel()) {
+    init(viewModel: BigViewModel) {
         self.viewModel = viewModel
+        self.cards = viewModel.cards.map { BankCard(id: $0.bankCard.id, bank: $0.bankCard.bank, name: $0.bankCard.name, image: nil, comment: nil) }
         super.init(nibName: nil, bundle: nil)
         
         loadBanks()
@@ -68,6 +65,22 @@ final class BankCardViewController: UIViewController, UITableViewDataSource, UIT
         // Set up the view
         setupView()
     }
+    
+    func generateRandomCardNumber() -> String {
+        // Start with "4400"
+        var cardNumber = "4400"
+        
+        // Add the masked section
+        cardNumber += " **** **** "
+        
+        // Generate four random digits for the end
+        let lastFourDigits = (0..<4).map { _ in Int.random(in: 0...9) }.map(String.init).joined()
+        
+        // Append the random digits to the card number
+        cardNumber += lastFourDigits
+        
+        return cardNumber
+    }
 
     // Method to set up the view
     private func setupView() {
@@ -75,9 +88,9 @@ final class BankCardViewController: UIViewController, UITableViewDataSource, UIT
         view.backgroundColor = .black
 
         // Customize the bank card view properties (optional)
-        bankCardView.bankName = "Your Bank"
-        bankCardView.cardNumber = "1234 5678 9012 3456"
-        bankCardView.bonus = "Bonus: 150 points"
+        bankCardView.bankName = viewModel.bestCard!.name
+        bankCardView.cardNumber = generateRandomCardNumber()
+        bankCardView.bonus = "Кэшбэк: " + String(Int(viewModel.bonus)) + "%"
         bankCardView.cardType = "Visa"
 
         tableView.backgroundColor = .black
@@ -125,7 +138,7 @@ final class BankCardViewController: UIViewController, UITableViewDataSource, UIT
 
     // UITableViewDataSource method to define the number of rows in the table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cards.count
+        return cards.count - 1
     }
 
     // UITableViewDataSource method to configure each cell
@@ -134,17 +147,22 @@ final class BankCardViewController: UIViewController, UITableViewDataSource, UIT
         let cell = tableView.dequeueReusableCell(withIdentifier: "BankCardCell", for: indexPath) as! BankCardTableViewCell
         
         // Get the card data for the current row
-        let card = cards[indexPath.row]
+        let card = cards[indexPath.row + 1]
+        cell.card = card
         
         // Configure the bank card view in the cell
-        cell.bankCardView.bankName = card.name
-        cell.bankCardView.cardNumber = card.name
-        cell.bankCardView.bonus = card.name
+        cell.bankCardView.bankName = card.bank.name
+        cell.bankCardView.cardNumber = generateRandomCardNumber()
+        cell.bankCardView.bonus = "Кэшбэк: " + randomLess(by: Int(viewModel.bonus) - 1) + "%"
         cell.bankCardView.cardType = card.name
         
         cell.changeGradient()
         
         return cell
+    }
+    
+    func randomLess(by: Int) -> String {
+        return String(Int.random(in: 0...by))
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

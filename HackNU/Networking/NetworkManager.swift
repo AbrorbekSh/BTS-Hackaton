@@ -160,7 +160,7 @@ extension NetworkManager {
             request.httpBody = jsonData
 
             let (data, response) = try await URLSession.shared.data(for: request)
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 201 else {
+            guard let httpResponse = response as? HTTPURLResponse else {
                 throw NSError(domain: "", code: (response as? HTTPURLResponse)?.statusCode ?? 500, userInfo: nil)
             }
 
@@ -170,13 +170,13 @@ extension NetworkManager {
 
 extension NetworkManager {
     func getCards(userId: Int) async throws -> [BankCardDetails] {
-        let url = URL(string: "http://172.20.10.4:8080/user-cards?userId=\(userId)&page=0&size=20")!
+        let url = URL(string: "http://172.20.10.4:8080/user-cards?userId=1&page=0&size=20")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
         let (data, response) = try await URLSession.shared.data(for: request)
-        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+        guard let httpResponse = response as? HTTPURLResponse else {
             throw NSError(domain: "", code: (response as? HTTPURLResponse)?.statusCode ?? 500, userInfo: ["response": "Failed to fetch bank cards with status code: \((response as? HTTPURLResponse)?.statusCode ?? 0)"])
         }
 
@@ -204,6 +204,26 @@ struct NewOfferRequest: Codable {
     var dateFrom: String
     var dateTo: String
 }
+
+extension NetworkManager {
+    func fetchBestOffer(userId: Int, categoryId: Int) async throws -> (BankCard, Double) {
+        let urlString = "http://172.20.10.4:8080/offers/best?userId=1&categoryId=\(categoryId)"
+        guard let url = URL(string: urlString) else {
+            throw URLError(.badURL)
+        }
+        
+        let (data, response) = try await URLSession.shared.data(from: url)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw URLError(.badServerResponse)
+        }
+        
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        let responseData = try decoder.decode(OfferResponse.self, from: data)
+        return (responseData.bankCard, responseData.percentage)
+    }
+}
+
 
 
 

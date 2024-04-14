@@ -25,15 +25,16 @@ struct RegistrationView: View {
                     //                            .foregroundStyle(Color.gray)
                     //                    }
                     //                }
-                    Image(systemName: "lasso")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(
-                            width: geometry.size.width * RegLogConstants.logoSize,
-                            height: geometry.size.height * RegLogConstants.logoSize
-                        )
-                        .padding(.vertical, geometry.size.height * RegLogConstants.logoVerticalPadding)
-                        .foregroundColor(ColorScheme.lemonYellow)
+//                    Image("newlogo")
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fit)
+//                        .frame(
+//                            width: 150,
+//                            height: 150
+//                        )
+//                        .padding(.vertical, geometry.size.height * RegLogConstants.logoVerticalPadding)
+//                        .foregroundColor(ColorScheme.lemonYellow)
+                    Spacer()
                     VStack {
                         TextField("Email",text: $email)
                             .modifier(TextFieldModifier())

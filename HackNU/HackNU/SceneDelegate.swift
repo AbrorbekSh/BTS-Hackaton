@@ -11,7 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 let window = UIWindow(windowScene: windowScene)
                 
                 // Create the SwiftUI view that provides the window contents.
-                @StateObject var viewModel = BigViewModel()
+                @StateObject var viewModel: BigViewModel = BigViewModel()
                 let registrationView = RegistrationView().environmentObject(viewModel)
                 
                 // Use a UIHostingController as window root view controller.
