@@ -207,7 +207,7 @@ struct NewOfferRequest: Codable {
 
 extension NetworkManager {
     func fetchBestOffer(userId: Int, categoryId: Int) async throws -> (BankCard, Double) {
-        let urlString = "http://172.20.10.4:8080/offers/best?userId=1&categoryId=\(categoryId)"
+        let urlString = "http://172.20.10.4:8080/offers/best?userId=1&categoryId=\(Int.random(in: 1...9))"
         guard let url = URL(string: urlString) else {
             throw URLError(.badURL)
         }

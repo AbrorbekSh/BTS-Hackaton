@@ -135,7 +135,7 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
 
             // Simultaneously, fetch the best offer
             do {
-                let bankCard = try await NetworkManager.shared.fetchBestOffer(userId: 3, categoryId: 3)
+                let bankCard = try await NetworkManager.shared.fetchBestOffer(userId: 3, categoryId: 1)
                 
                 // Stop the activity indicator
                 DispatchQueue.main.async { [weak self] in
@@ -165,7 +165,10 @@ final class MainViewController: UIViewController, UITextFieldDelegate {
         textField.layer.cornerRadius = 8
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.gray.cgColor
-        textField.placeholder = "Enter passcode"
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "   Вставьте ссылку",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.black]
+        )
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.textAlignment = .left
         textField.textColor = .black
